@@ -1,0 +1,16 @@
+export const site = {
+  brand: 'Rasulov GI',
+  brandTagline: 'Eshik va mebel ustaxonasi',
+  brandShort: 'RGI',
+  slogan: 'Sifatli eshiklar va zamonaviy mebellar',
+  subSlogan: 'Uyingiz uchun eng yaxshi tanlov',
+  phone: '+998 97 443 28 28',
+  phoneHref: 'tel:+998974432828',
+  telegram: '@ibrohim7810',
+  telegramHref: 'https://t.me/rasuloveshilari',
+  instagram: '@rasulov.eshilari',
+  instagramHref: 'https://instagram.com/rasulov.eshiklari',
+  address: 'Toshkent shahri, Chilonzor tumani',
+  email: 'info@rasulov-mebel.uz',
+  whatsappHref: 'https://wa.me/998974432828',
+}

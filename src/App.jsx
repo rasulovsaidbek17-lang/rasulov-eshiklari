@@ -2,6 +2,8 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import StickyActionBar from './components/StickyActionBar'
+import ScrollExperience from './components/ScrollExperience'
+import LuxuryMotion from './components/LuxuryMotion'
 import Home from './pages/Home'
 import ProductsPage from './pages/ProductsPage'
 import ProductDetail from './pages/ProductDetail'
@@ -15,6 +17,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
+       <LuxuryMotion />
       <div className="flex-1 pb-16 lg:pb-0">
         {/* Keying by pathname remounts the page subtree on navigation, which
             retriggers the fade-up entrance below — a restrained page-transition
@@ -33,6 +36,7 @@ export default function App() {
       </div>
       <Footer />
       <StickyActionBar />
+      <ScrollExperience />
     </div>
   )
 }

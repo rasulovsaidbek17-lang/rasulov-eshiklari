@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
 import { site } from '../data/site'
 
@@ -14,6 +14,8 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -30,7 +32,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled || open ? 'bg-charcoal/95 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.25)]' : 'bg-transparent'
+        scrolled || open || !isHome ? 'bg-charcoal/95 backdrop-blur-md border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)]' : 'bg-transparent'
       }`}
     >
       <nav className="container-px flex items-center justify-between h-[72px] md:h-20" aria-label="Asosiy navigatsiya">

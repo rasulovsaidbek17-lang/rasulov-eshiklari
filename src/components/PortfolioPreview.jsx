@@ -8,7 +8,7 @@ export default function PortfolioPreview() {
   return (
     <section ref={ref} className="bg-ivory">
       <div className="container-px py-16 md:py-24">
-        <div data-reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
+        <div data-reveal="left" className="flex flex-wrap items-end justify-between gap-6 mb-12">
           <div className="max-w-xl">
             <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Portfolio</p>
             <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal">BIZNING ISHLARIMIZ</h2>
@@ -26,7 +26,7 @@ export default function PortfolioPreview() {
             <Link
               to="/portfolio"
               key={p.id}
-              data-reveal
+              data-reveal={i === 0 ? 'scale' : i % 2 ? 'left' : 'right'} data-tilt
               style={{ animationDelay: `${i * 60}ms` }}
               className={`group relative overflow-hidden rounded-2xl block ${i === 0 ? 'col-span-2 aspect-[16/10]' : 'aspect-square'}`}
             >

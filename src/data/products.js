@@ -8,7 +8,7 @@ export const categories = [
   {
     id: 'kirish-eshiklari',
     name: 'Kirish eshiklari',
-    image: '/images/doors/entrance-door-1.jpg',
+    image: '/images/doors/entrance-door-1-1.jpg',
     filterKey: 'eshiklar',
   },
   {
@@ -69,8 +69,8 @@ export const products = [
     categoryLabel: 'Kirish eshiklari',
     price: null,
     priceLabel: 'Narx so‘rov bo‘yicha',
-    image: '/images/doors/entrance-door-1.jpg',
-    gallery: ['/images/doors/entrance-door-1.jpg', '/images/doors/interior-door-1.jpg', '/images/doors/entrance-door-1.jpg'],
+    image: '/images/doors/entrance-door-1-1.jpg',
+    gallery: ['/images/doors/entrance-door-1-1.jpg', '/images/doors/interior-door-1.jpg', '/images/doors/entrance-door-1-1.jpg'],
     description: 'Ishonchli va zamonaviy kirish eshigi, issiqlik izolatsiyasi va mustahkam qulf tizimi bilan.',
     material: 'Po‘lat karkas + yong‘oq qoplama',
     colors: ['Qora', 'Jigarrang'],
@@ -144,7 +144,7 @@ export const portfolioProjects = [
   { id: 'p2', name: 'Yunusobod oshxonasi', category: 'oshxona', image: '/images/portfolio/project-2.jpg' },
   { id: 'p3', name: 'Mirzo Ulug‘bek yotoqxonasi', category: 'yotoqxona', image: '/images/portfolio/project-3.jpg' },
   { id: 'p4', name: 'Yakkasaroy mehmonxonasi', category: 'mehmonxona', image: '/images/living/living-1.jpg' },
-  { id: 'p5', name: 'Sergeli kirish eshigi', category: 'eshiklar', image: '/images/doors/entrance-door-1.jpg' },
+  { id: 'p5', name: 'Sergeli kirish eshigi', category: 'eshiklar', image: '/images/doors/entrance-door-1-1.jpg' },
   { id: 'p6', name: 'Shayxontohur loyihasi', category: 'oshxona', image: '/images/kitchen/kitchen-1.jpg' },
 ]
 

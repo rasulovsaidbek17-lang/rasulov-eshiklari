@@ -40,20 +40,19 @@ src/
                     site.js (telefon, telegram, manzil va boshqa aloqa ma'lumotlari)
   hooks/        -> useReveal (scroll animatsiyasi), useSEO (title/description)
 public/
-  images/       -> barcha rasm fayllari (hozircha placeholder)
+  images/       -> barcha rasm fayllari
 ```
 
 ## Rasmlarni almashtirish
 
-`public/images/` papkasidagi fayllar hozircha placeholder (avtomatik generatsiya
-qilingan gradient rasmlar). Haqiqiy fotosuratlarni xuddi shu fayl nomlari bilan
-almashtiring — kod hech narsani o'zgartirmasdan yangi rasmlarni ko'rsatadi:
+`public/images/` papkasidagi rasmlarni xuddi shu fayl nomlari bilan almashtiring —
+kod hech narsani o'zgartirmasdan yangi rasmlarni ko'rsatadi:
 
 ```
 public/images/hero.jpg
 public/images/doors/interior-door-1.jpg
 public/images/doors/interior-door-2.jpg
-public/images/doors/entrance-door-1.jpg
+public/images/doors/entrance-door-1-1.jpg
 public/images/kitchen/kitchen-1.jpg
 public/images/bedroom/bedroom-1.jpg
 public/images/living/living-1.jpg
@@ -107,8 +106,6 @@ Bu usul `dist` papkasini qo'lda yuklashdan ko'ra ancha ishonchli, chunki build j
 
 
 
-Bu — statik frontend loyiha. Aloqa formasi hozircha faqat client-side
-validatsiya qiladi va real backend/email yuborish ulanmagan. Formani
-haqiqiy ishlatish uchun uni Telegram Bot API, Formspree yoki o'zingizning
-backend xizmatingizga ulashingiz kerak (`src/components/Contact.jsx`
-ichidagi `handleSubmit` funksiyasi).
+Bu — statik frontend loyiha. Aloqa formasi client-side validatsiyadan so'ng
+ma'lumotlarni tayyor WhatsApp xabari sifatida biznes raqamiga yuboradi.
+WhatsApp ochilgach, xabarni yuborishni foydalanuvchi tasdiqlaydi.

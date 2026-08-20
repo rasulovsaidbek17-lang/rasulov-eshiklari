@@ -9,6 +9,10 @@ export function useReveal(dep = []) {
     const scope = scopeRef.current
     if (!scope) return
     const items = scope.querySelectorAll('[data-reveal]')
+    items.forEach((el) => {
+      el.classList.add('reveal')
+      el.classList.add(`reveal-${el.dataset.reveal || 'up'}`)
+    })
     if (!items.length) return
 
     const observer = new IntersectionObserver(

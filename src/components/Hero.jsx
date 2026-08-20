@@ -1,49 +1,56 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Phone } from 'lucide-react'
+import { ArrowDownRight, ArrowRight, Phone, Sparkles } from 'lucide-react'
 import { site } from '../data/site'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[92vh] md:min-h-[100vh] flex items-end md:items-center overflow-hidden">
+    <section className="hero-stage relative min-h-[92vh] md:min-h-[100vh] flex items-end md:items-center overflow-hidden bg-charcoal">
       <img
         src="/images/hero.jpg"
         alt="Zamonaviy premium interyer: qora eshik va yong'oq mebel"
         className="absolute inset-0 h-full w-full object-cover animate-heroZoom motion-reduce:animate-none"
         fetchpriority="high"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/55 to-charcoal/20" />
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/65 to-charcoal/5" />
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/[.94] via-charcoal/45 to-transparent" />
+      <div className="hero-grid absolute inset-0 opacity-40" aria-hidden="true" />
+      <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
+      <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
+      <div className="absolute right-5 top-28 hidden md:flex items-center gap-3 text-[10px] font-semibold tracking-[0.32em] text-ivory/50 [writing-mode:vertical-rl]">
+        RASULOV GI / EST. 2016
+        <span className="h-12 w-px bg-bronze-400/70" />
+      </div>
 
       <div className="relative container-px w-full pb-16 pt-40 md:pb-0 md:pt-0">
-        <div className="max-w-xl">
+        <div className="max-w-2xl">
           <p
             className="tick-rule text-bronze-300 text-xs md:text-sm font-semibold tracking-widest2 uppercase mb-6 opacity-0 animate-fadeUp motion-reduce:opacity-100"
             style={{ animationDelay: '150ms' }}
           >
-            Toshkentdagi premium eshik &amp; mebel ustaxonasi
+            Toshkentdagi premium eshik &amp; mebel 
           </p>
-          <h1 className="font-display font-extrabold text-ivory text-[2.5rem] leading-[1.08] sm:text-5xl md:text-6xl md:leading-[1.06]">
+          <h1 className="font-display font-extrabold text-ivory text-[2.65rem] leading-[1.03] sm:text-5xl md:text-7xl md:leading-[.98] tracking-[-0.045em]">
             <span
               className="block opacity-0 animate-fadeUp motion-reduce:opacity-100"
               style={{ animationDelay: '260ms' }}
             >
-              SIFATLI ESHIKLAR
+              MAKONINGIZGA
             </span>
             <span
               className="block opacity-0 animate-fadeUp motion-reduce:opacity-100"
               style={{ animationDelay: '360ms' }}
             >
-              VA ZAMONAVIY
+              O‘ZIGA XOS
             </span>
             <span
               className="block opacity-0 animate-fadeUp motion-reduce:opacity-100"
               style={{ animationDelay: '460ms' }}
             >
-              MEBELLAR
+              XARAKTER BERAMIZ
             </span>
           </h1>
           <p
-            className="mt-6 text-ivory/75 text-base md:text-lg max-w-md opacity-0 animate-fadeUp motion-reduce:opacity-100"
+            className="mt-7 text-ivory/75 text-base md:text-lg max-w-lg leading-relaxed opacity-0 animate-fadeUp motion-reduce:opacity-100"
             style={{ animationDelay: '600ms' }}
           >
             {site.subSlogan}. Har bir loyiha — o‘lchamdan tortib o‘rnatishgacha — bitta ustaxonada.
@@ -70,8 +77,27 @@ export default function Hero() {
               Buyurtma berish
             </a>
           </div>
+          <div className="mt-11 flex flex-wrap gap-x-8 gap-y-4 border-t border-ivory/15 pt-5 opacity-0 animate-fadeUp motion-reduce:opacity-100" style={{ animationDelay: '880ms' }}>
+            <HeroMetric value="10+" label="yillik tajriba" />
+            <HeroMetric value="500+" label="tayyor loyiha" />
+            <HeroMetric value="100%" label="individual yondashuv" />
+          </div>
         </div>
       </div>
+      <div className="absolute bottom-6 right-5 hidden md:flex lg:right-10 items-center gap-4 text-ivory/65">
+        <span className="text-[10px] font-semibold tracking-[0.25em] uppercase">Pastga kashf eting</span>
+        <span className="hero-scroll flex h-10 w-10 items-center justify-center rounded-full border border-ivory/30"><ArrowDownRight size={16} /></span>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-ivory/20"><span className="block h-px w-[38%] bg-bronze-400 animate-heroLine origin-left motion-reduce:animate-none" /></div>
     </section>
+  )
+}
+
+function HeroMetric({ value, label }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <Sparkles size={13} className="text-bronze-300" strokeWidth={1.5} />
+      <p className="text-xs text-ivory/65"><strong className="font-display text-base text-ivory mr-1.5">{value}</strong>{label}</p>
+    </div>
   )
 }

@@ -50,6 +50,14 @@ export default function Contact() {
     const errs = validate(form)
     setErrors(errs)
     if (Object.keys(errs).length === 0) {
+      const message = [
+        'Assalomu alaykum! Sayt orqali yangi so‘rov:',
+        `Ism: ${form.name.trim()}`,
+        `Telefon: ${form.phone.trim()}`,
+        `Qiziqish: ${form.interest}`,
+        `Xabar: ${form.message.trim()}`,
+      ].join('\n')
+      window.open(`${site.whatsappHref}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
       setSubmitted(true)
       setForm(initialForm)
     }
@@ -86,7 +94,7 @@ export default function Contact() {
             {submitted && (
               <div className="flex items-center gap-2 rounded-xl bg-bronze-50 text-bronze-700 text-sm px-4 py-3">
                 <CheckCircle2 size={18} />
-                So‘rovingiz qabul qilindi. Tez orada bog‘lanamiz!
+                WhatsApp ochildi. Xabaringizni yuborish uchun tasdiqlang.
               </div>
             )}
 

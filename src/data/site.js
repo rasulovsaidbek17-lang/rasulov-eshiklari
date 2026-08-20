@@ -1,6 +1,6 @@
 export const site = {
   brand: 'Rasulov GI',
-  brandTagline: 'Eshik va mebel ustaxonasi',
+  brandTagline: 'Eshik va mebel',
   brandShort: 'RGI',
   slogan: 'Sifatli eshiklar va zamonaviy mebellar',
   subSlogan: 'Uyingiz uchun eng yaxshi tanlov',

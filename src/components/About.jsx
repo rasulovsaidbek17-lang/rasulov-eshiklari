@@ -12,7 +12,7 @@ export default function About() {
   return (
     <section ref={ref} className="bg-white">
       <div className="container-px py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
-        <div data-reveal className="relative order-2 lg:order-1">
+        <div data-reveal="scale" className="relative order-2 lg:order-1">
           <div className="aspect-[4/3] rounded-2xl overflow-hidden">
             <img src="/images/about.jpg" alt="Rasulov GI ustaxonasi" className="h-full w-full object-cover" loading="lazy" />
           </div>
@@ -25,7 +25,7 @@ export default function About() {
           </div>
         </div>
 
-        <div data-reveal className="order-1 lg:order-2">
+        <div data-reveal="right" className="order-1 lg:order-2">
           <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Biz haqimizda</p>
           <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal leading-tight">
             UYINGIZ UCHUN SIFATLI TANLOV

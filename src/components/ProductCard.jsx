@@ -1,48 +1,54 @@
 import { Link } from 'react-router-dom'
+import { ArrowUpRight, Ruler, ShoppingBag } from 'lucide-react'
 import { site } from '../data/site'
 
 export default function ProductCard({ product, index = 0 }) {
   return (
     <div
-      data-reveal
+      data-reveal="scale" data-tilt
       style={{ animationDelay: `${(index % 6) * 70}ms` }}
-      className="group flex flex-col rounded-2xl border border-charcoal/8 bg-white overflow-hidden transition-shadow duration-300 hover:shadow-[0_18px_40px_-16px_rgba(23,21,18,0.25)]"
+      className="product-card group relative flex flex-col overflow-hidden rounded-2xl border border-charcoal/8 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_55px_-22px_rgba(23,21,18,0.38)]"
     >
-      <Link to={`/mahsulot/${product.id}`} className="relative block aspect-[4/3] overflow-hidden">
+      <Link to={`/mahsulot/${product.id}`} className="relative block aspect-[5/4] overflow-hidden bg-charcoal">
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
+          onError={(event) => { event.currentTarget.src = '/images/hero.jpg' }}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        <span className="absolute top-3 left-3 rounded-full bg-charcoal/80 text-ivory text-[11px] font-medium tracking-wide px-3 py-1">
+        <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
+          <span className="rounded-full bg-ivory/95 px-3 py-1.5 text-[10px] font-bold tracking-[.12em] text-charcoal">
           {product.categoryLabel}
-        </span>
+          </span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-charcoal/75 text-ivory opacity-0 transition-all duration-300 group-hover:opacity-100"><ArrowUpRight size={17} /></span>
+        </div>
       </Link>
 
-      <div className="flex flex-col gap-3 p-5">
+      <div className="flex flex-1 flex-col gap-4 p-5 md:p-6">
         <div>
-          <h3 className="font-display font-bold text-charcoal text-[15px] leading-snug">{product.name}</h3>
-          <p className="text-charcoal-400 text-sm mt-1 line-clamp-2">{product.description}</p>
+          <p className="text-[10px] font-bold tracking-[.2em] text-bronze-600 uppercase">{product.categoryLabel}</p>
+          <h3 className="mt-2 font-display font-bold text-charcoal text-base leading-snug">{product.name}</h3>
+          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-charcoal-400">{product.description}</p>
         </div>
 
-        <div className="flex items-center gap-1.5">
-          {product.colors.slice(0, 4).map((c) => (
-            <span
-              key={c}
-              title={c}
-              className="h-4 w-4 rounded-full border border-charcoal/10"
-              style={{ backgroundColor: colorSwatch(c) }}
-            />
-          ))}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-charcoal-400">
+          <span className="inline-flex items-center gap-1.5"><Ruler size={14} className="text-bronze-600" />{product.size}</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="flex -space-x-1">{product.colors.slice(0, 3).map((color) => <span key={color} title={color} className="h-4 w-4 rounded-full border border-white" style={{ backgroundColor: colorSwatch(color) }} />)}</span>
+            {product.colors.length} rang
+          </span>
         </div>
 
-        <p className="font-display font-bold text-bronze-600 text-base">{product.priceLabel}</p>
+        <div className="mt-auto flex items-end justify-between gap-3 border-t border-charcoal/8 pt-4">
+          <div><p className="text-[10px] font-medium text-charcoal-400">Boshlang‘ich narx</p><p className="mt-1 font-display text-base font-bold text-bronze-600">{product.priceLabel}</p></div>
+          <span className="text-[10px] font-semibold text-charcoal-400">{product.warranty}</span>
+        </div>
 
-        <div className="mt-1 flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Link
             to={`/mahsulot/${product.id}`}
-            className="flex-1 text-center rounded-full border border-charcoal/15 hover:border-charcoal/40 text-charcoal text-sm font-semibold py-2.5 transition-colors"
+            className="flex-1 rounded-full border border-charcoal/15 py-3 text-center text-sm font-semibold text-charcoal transition-colors hover:border-charcoal/40"
           >
             Batafsil
           </Link>
@@ -50,8 +56,9 @@ export default function ProductCard({ product, index = 0 }) {
             href={site.whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center rounded-full bg-bronze-500 hover:bg-bronze-400 text-ivory text-sm font-semibold py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_22px_-10px_rgba(168,121,62,0.6)]"
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-bronze-500 py-3 text-center text-sm font-semibold text-ivory transition-all duration-300 hover:-translate-y-0.5 hover:bg-bronze-400 hover:shadow-[0_10px_22px_-10px_rgba(168,121,62,0.6)]"
           >
+            <ShoppingBag size={15} />
             Buyurtma berish
           </a>
         </div>

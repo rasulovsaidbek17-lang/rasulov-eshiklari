@@ -82,7 +82,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="lg:hidden bg-charcoal border-t border-white/10 animate-fadeUp">
+        <div className="relative z-[60] lg:hidden bg-charcoal border-t border-white/10 animate-fadeUp">
           <ul className="container-px py-6 flex flex-col gap-1 font-body text-ivory">
             {links.map((l) => (
               <li key={l.to}>

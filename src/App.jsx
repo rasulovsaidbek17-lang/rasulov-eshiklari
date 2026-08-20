@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import StickyActionBar from './components/StickyActionBar'
 import ScrollExperience from './components/ScrollExperience'
-import LuxuryMotion, { LuxuryLoader } from './components/LuxuryMotion'
+import { LuxuryLoader } from './components/LuxuryMotion'
 import Home from './pages/Home'
 import ProductsPage from './pages/ProductsPage'
 import ProductDetail from './pages/ProductDetail'
@@ -23,7 +23,6 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-       <LuxuryMotion />
       <div className="flex-1 pb-16 lg:pb-0">
         <div key={location.key} className="route-page-enter motion-reduce:animate-none">
           <Routes location={location}>

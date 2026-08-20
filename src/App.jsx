@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import LuxuryMotion from './components/LuxuryMotion'
 import Home from './pages/Home'
 import ProductsPage from './pages/ProductsPage'
+import ProductDetail from './pages/ProductDetail'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/mahsulotlar" element={<ProductsPage />} />
+            <Route path="/mahsulot/:id" element={<ProductDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

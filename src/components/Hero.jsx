@@ -69,13 +69,11 @@ export default function Hero() {
               <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
             <a
-              href={site.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={site.phoneHref}
               className="inline-flex items-center gap-2 rounded-full border border-ivory/35 hover:border-ivory/70 text-ivory font-semibold text-sm px-7 py-4 transition-all duration-300 hover:-translate-y-0.5"
             >
               <Phone size={16} />
-              Buyurtma berish
+              Qo‘ng‘iroq qilish
             </a>
           </div>
           <div className="mt-11 flex flex-wrap gap-x-8 gap-y-4 border-t border-ivory/15 pt-5 opacity-0 animate-fadeUp motion-reduce:opacity-100" style={{ animationDelay: '880ms' }}>

@@ -9,13 +9,13 @@ export default function ProductCard({ product, index = 0 }) {
       style={{ animationDelay: `${(index % 6) * 70}ms` }}
       className="product-card group relative flex flex-col overflow-hidden rounded-2xl border border-charcoal/8 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_55px_-22px_rgba(23,21,18,0.38)]"
     >
-      <Link to={`/mahsulot/${product.id}`} className="relative block aspect-[5/4] overflow-hidden bg-charcoal">
+      <Link to={`/mahsulot/${product.id}`} className={`relative block overflow-hidden ${product.category === 'eshiklar' ? 'aspect-[3/4] bg-sand-light' : 'aspect-[5/4] bg-charcoal'}`}>
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
           onError={(event) => { event.currentTarget.src = '/images/hero.jpg' }}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className={`h-full w-full transition-transform duration-700 ease-out ${product.category === 'eshiklar' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
         />
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
           <span className="rounded-full bg-ivory/95 px-3 py-1.5 text-[10px] font-bold tracking-[.12em] text-charcoal">
@@ -25,7 +25,7 @@ export default function ProductCard({ product, index = 0 }) {
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col gap-4 p-5 md:p-6">
+      <div className="flex flex-1 flex-col gap-3 p-4 md:gap-4 md:p-6">
         <div>
           <p className="text-[10px] font-bold tracking-[.2em] text-bronze-600 uppercase">{product.categoryLabel}</p>
           <h3 className="mt-2 font-display font-bold text-charcoal text-base leading-snug">{product.name}</h3>

@@ -6,9 +6,7 @@ import { site } from '../data/site'
 const links = [
   { to: '/', label: 'Bosh sahifa' },
   { to: '/mahsulotlar', label: 'Mahsulotlar' },
-  { to: '/portfolio', label: 'Portfolio' },
-  { to: '/biz-haqimizda', label: 'Biz haqimizda' },
-  { to: '/aloqa', label: 'Aloqa' },
+  { to: '/#aloqa', label: 'Biz bilan bog‘laning' },
 ]
 
 export default function Navbar() {
@@ -40,7 +38,7 @@ export default function Navbar() {
           <img
             src="/images/logo.png"
             alt={`${site.brand} — ${site.brandTagline}`}
-            className="h-9 md:h-10 w-auto transition-transform duration-500 ease-out hover:scale-105"
+            className="h-[3.45rem] md:h-[3.79rem] w-auto transition-transform duration-500 ease-out hover:scale-105"
           />
         </Link>
 

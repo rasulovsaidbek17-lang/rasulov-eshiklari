@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Send, Instagram, Phone } from 'lucide-react'
 import { site } from '../data/site'
-import { categories } from '../data/products'
+import { catalogGroups } from '../data/products'
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
             <img
               src="/images/logo.png"
               alt={`${site.brand} — ${site.brandTagline}`}
-              className="h-10 w-auto"
+              className="h-[3.79rem] w-auto"
             />
           </Link>
           <p className="text-ivory/50 text-sm leading-relaxed max-w-xs">
@@ -35,20 +35,18 @@ export default function Footer() {
           <h4 className="text-ivory font-display font-bold text-sm mb-4 tracking-wide">MENYU</h4>
           <ul className="space-y-2.5 text-sm text-ivory/55">
             <li><Link to="/" className="hover:text-bronze-300 transition-colors">Bosh sahifa</Link></li>
-            <li><Link to="/mahsulotlar" className="hover:text-bronze-300 transition-colors">Mahsulotlar</Link></li>
-            <li><Link to="/portfolio" className="hover:text-bronze-300 transition-colors">Portfolio</Link></li>
-            <li><Link to="/biz-haqimizda" className="hover:text-bronze-300 transition-colors">Biz haqimizda</Link></li>
-            <li><Link to="/aloqa" className="hover:text-bronze-300 transition-colors">Aloqa</Link></li>
+            <li><Link to="/mahsulotlar" className="hover:text-bronze-300 transition-colors">Katalog</Link></li>
+            <li><Link to="/#aloqa" className="hover:text-bronze-300 transition-colors">Biz bilan bog‘laning</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="text-ivory font-display font-bold text-sm mb-4 tracking-wide">KATEGORIYALAR</h4>
           <ul className="space-y-2.5 text-sm text-ivory/55">
-            {categories.slice(0, 5).map((c) => (
-              <li key={c.id}>
-                <Link to={`/mahsulotlar?kategoriya=${c.filterKey}`} className="hover:text-bronze-300 transition-colors">
-                  {c.name}
+            {catalogGroups.map((group) => (
+              <li key={group.id}>
+                <Link to={`/mahsulotlar?kategoriya=${group.id}`} className="hover:text-bronze-300 transition-colors">
+                  {group.name}
                 </Link>
               </li>
             ))}

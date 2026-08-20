@@ -1,10 +1,16 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { PackageOpen } from 'lucide-react'
-import { products, filters } from '../data/products'
+import { catalogGroups, products } from '../data/products'
 import ProductCard from '../components/ProductCard'
 import { useReveal } from '../hooks/useReveal'
 import { useSEO } from '../hooks/useSEO'
+
+const catalogFilters = [
+  { key: 'barchasi', label: 'Barchasi' },
+  { key: 'mebellar', label: 'Mebellar' },
+  { key: 'eshiklar', label: 'Eshiklar' },
+]
 
 export default function ProductsPage() {
   useSEO({
@@ -14,20 +20,29 @@ export default function ProductsPage() {
 
   const [params, setParams] = useSearchParams()
   const activeFilter = params.get('kategoriya') || 'barchasi'
-  const ref = useReveal([activeFilter])
+  const activeSubcategory = params.get('tur') || ''
+  const activeGroup = catalogGroups.find((group) => group.id === activeFilter)
+  const ref = useReveal([activeFilter, activeSubcategory])
 
   const filtered = useMemo(() => {
     const result = products.filter((product) => {
-      const matchesCategory = activeFilter === 'barchasi' || product.category === activeFilter
-      return matchesCategory
+      const matchesCategory = activeFilter === 'barchasi'
+        || (activeFilter === 'mebellar' && product.category !== 'eshiklar')
+        || product.category === activeFilter
+      const matchesSubcategory = !activeSubcategory || product.subcategory === activeSubcategory
+      return matchesCategory && matchesSubcategory
     })
 
     return result
-  }, [activeFilter])
+  }, [activeFilter, activeSubcategory])
 
   const categoryCounts = useMemo(
-    () => filters.reduce((counts, filter) => {
-      counts[filter.key] = filter.key === 'barchasi' ? products.length : products.filter((product) => product.category === filter.key).length
+    () => catalogFilters.reduce((counts, filter) => {
+      counts[filter.key] = filter.key === 'barchasi'
+        ? products.length
+        : filter.key === 'mebellar'
+          ? products.filter((product) => product.category !== 'eshiklar').length
+          : products.filter((product) => product.category === filter.key).length
       return counts
     }, {}),
     []
@@ -36,6 +51,14 @@ export default function ProductsPage() {
   const updateCategory = (category) => {
     if (category === 'barchasi') setParams({})
     else setParams({ kategoriya: category })
+  }
+
+  const updateSubcategory = (subcategory) => {
+    if (!activeGroup || subcategory === 'barchasi') {
+      setParams({ kategoriya: activeFilter })
+      return
+    }
+    setParams({ kategoriya: activeFilter, tur: subcategory })
   }
 
   return (
@@ -57,7 +80,7 @@ export default function ProductsPage() {
 
         <section data-reveal="right" className="mt-12 border-y border-charcoal/10 py-5" aria-label="Mahsulot kategoriyalari">
           <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Kategoriyalar">
-            {filters.map((filter) => (
+            {catalogFilters.map((filter) => (
               <button
                 key={filter.key}
                 type="button"
@@ -72,11 +95,40 @@ export default function ProductsPage() {
           </div>
         </section>
 
+        {activeGroup && (
+          <section data-reveal="left" className="mt-6 border-b border-charcoal/10 pb-6" aria-label={`${activeGroup.name} kategoriyalari`}>
+            <p className="mb-3 text-xs font-semibold tracking-[.18em] text-charcoal-400 uppercase">{activeGroup.name} turlari</p>
+            <div className="flex flex-wrap gap-2" role="group" aria-label={`${activeGroup.name} kichik kategoriyalari`}>
+              <button
+                type="button"
+                onClick={() => updateSubcategory('barchasi')}
+                className={`rounded-full border px-4 py-2 text-xs font-semibold transition-all ${
+                  !activeSubcategory ? 'border-charcoal bg-charcoal text-ivory' : 'border-charcoal/10 bg-ivory text-charcoal-400 hover:border-charcoal/30 hover:text-charcoal'
+                }`}
+              >
+                Barchasi
+              </button>
+              {activeGroup.subcategories.map((subcategory) => (
+                <button
+                  key={subcategory.key}
+                  type="button"
+                  onClick={() => updateSubcategory(subcategory.key)}
+                  className={`rounded-full border px-4 py-2 text-xs font-semibold transition-all ${
+                    activeSubcategory === subcategory.key ? 'border-charcoal bg-charcoal text-ivory' : 'border-charcoal/10 bg-ivory text-charcoal-400 hover:border-charcoal/30 hover:text-charcoal'
+                  }`}
+                >
+                  {subcategory.label}
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
         <div className="mt-8 flex items-center justify-between gap-4">
           <p className="text-xs font-semibold tracking-[.18em] text-charcoal-400 uppercase">{filtered.length} ta mahsulot</p>
         </div>
 
-        <div className="relative mt-5 grid gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="relative mt-5 grid gap-4 pb-16 sm:grid-cols-2 lg:gap-5 lg:grid-cols-3">
           {filtered.map((p, i) => (
             <ProductCard key={p.id} product={p} index={i} />
           ))}

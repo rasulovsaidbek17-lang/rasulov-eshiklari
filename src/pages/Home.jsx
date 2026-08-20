@@ -1,12 +1,5 @@
 import Hero from '../components/Hero'
-import Features from '../components/Features'
-import BrandStatement from '../components/BrandStatement'
-import Process from '../components/Process'
 import Categories from '../components/Categories'
-import PortfolioPreview from '../components/PortfolioPreview'
-import About from '../components/About'
-import Testimonials from '../components/Testimonials'
-import CTA from '../components/CTA'
 import Contact from '../components/Contact'
 import { useSEO } from '../hooks/useSEO'
 
@@ -19,15 +12,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Features />
       <Categories />
-      <PortfolioPreview />
-      <About />
-      <BrandStatement />
-      <Testimonials />
-      <CTA />
       <Contact />
-      <Process />
     </>
   )
 }

@@ -2,15 +2,9 @@ import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import StickyActionBar from './components/StickyActionBar'
-import ScrollExperience from './components/ScrollExperience'
-import { LuxuryLoader } from './components/LuxuryMotion'
+import LuxuryMotion from './components/LuxuryMotion'
 import Home from './pages/Home'
 import ProductsPage from './pages/ProductsPage'
-import ProductDetail from './pages/ProductDetail'
-import PortfolioPage from './pages/PortfolioPage'
-import AboutPage from './pages/AboutPage'
-import ContactPage from './pages/ContactPage'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -28,20 +22,12 @@ export default function App() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/mahsulotlar" element={<ProductsPage />} />
-            <Route path="/mahsulot/:id" element={<ProductDetail />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/biz-haqimizda" element={<AboutPage />} />
-            <Route path="/aloqa" element={<ContactPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
-      <div key={location.key} className="route-transition" aria-hidden="true">
-        <LuxuryLoader />
-      </div>
+      <LuxuryMotion />
       <Footer />
-      <StickyActionBar />
-      <ScrollExperience />
     </div>
   )
 }

@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { categories } from '../data/products'
+import { catalogGroups } from '../data/products'
 import { useReveal } from '../hooks/useReveal'
 
 export default function Categories() {
   const ref = useReveal()
   return (
-    <section ref={ref} className="bg-white">
+    <section ref={ref} id="katalog" className="bg-white">
       <div className="container-px py-16 md:py-24">
         <div data-reveal className="max-w-2xl mb-12">
           <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Kolleksiya</p>
-          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal">TANLANGAN KOLLEKSIYA</h2>
-          <p className="mt-3 text-charcoal-400">Makoningiz uchun ishlab chiqilgan premium yechimlar.</p>
+          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal">KATALOG</h2>
+          <p className="mt-3 text-charcoal-400">Mebellar va eshiklar katalogidan kerakli yo‘nalishni tanlang.</p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {categories.map((c, i) => (
+        <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+          {catalogGroups.map((c, i) => (
             <Link
-              to={`/mahsulotlar?kategoriya=${c.filterKey}`}
+              to={`/mahsulotlar?kategoriya=${c.id}`}
               key={c.id}
               data-reveal="scale" data-tilt
               style={{ animationDelay: `${i * 70}ms` }}

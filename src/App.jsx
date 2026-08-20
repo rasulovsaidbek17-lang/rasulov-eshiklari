@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import StickyActionBar from './components/StickyActionBar'
 import ScrollExperience from './components/ScrollExperience'
-import LuxuryMotion from './components/LuxuryMotion'
+import LuxuryMotion, { LuxuryLoader } from './components/LuxuryMotion'
 import Home from './pages/Home'
 import ProductsPage from './pages/ProductsPage'
 import ProductDetail from './pages/ProductDetail'
@@ -19,10 +19,7 @@ export default function App() {
       <Navbar />
        <LuxuryMotion />
       <div className="flex-1 pb-16 lg:pb-0">
-        {/* Keying by pathname remounts the page subtree on navigation, which
-            retriggers the fade-up entrance below — a restrained page-transition
-            cue rather than a full animation library. */}
-        <div key={location.pathname} className="animate-fadeUp motion-reduce:animate-none" style={{ animationDuration: '0.45s' }}>
+        <div key={location.key} className="route-page-enter motion-reduce:animate-none">
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/mahsulotlar" element={<ProductsPage />} />
@@ -33,6 +30,9 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+      </div>
+      <div key={location.key} className="route-transition" aria-hidden="true">
+        <LuxuryLoader />
       </div>
       <Footer />
       <StickyActionBar />

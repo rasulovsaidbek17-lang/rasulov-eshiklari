@@ -2,8 +2,8 @@ import { useReveal } from '../hooks/useReveal'
 import { useCountUp } from '../hooks/useCountUp'
 
 const stats = [
-  { end: 10, suffix: '+', label: 'Yillik tajriba' },
-  { end: 500, suffix: '+', label: 'Tayyor loyihalar' },
+  { end: 34, suffix: '+', label: 'Yillik tajriba' },
+  { end: 500000, suffix: '+', label: 'Buyurtma' },
   { end: 100, suffix: '%', label: 'Sifat kafolati' },
 ]
 

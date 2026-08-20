@@ -6,7 +6,7 @@ import { useSEO } from '../hooks/useSEO'
 export default function AboutPage() {
   useSEO({
     title: 'Biz haqimizda — Rasulov GI',
-    description: "10 yildan ortiq tajriba, 500 dan ortiq bajarilgan loyiha. Rasulov GI — Toshkentdagi ishonchli hamkoringiz.",
+    description: "34 yildan ortiq tajriba, 500000 dan ortiq bajarilgan buyurtmalar. Rasulov GI — Toshkentdagi ishonchli hamkoringiz.",
   })
 
   return (

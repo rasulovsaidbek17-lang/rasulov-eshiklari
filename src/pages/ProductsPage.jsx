@@ -42,7 +42,7 @@ export default function ProductsPage() {
     <main ref={ref} className="relative overflow-hidden pt-28 md:pt-36 pb-16 bg-ivory min-h-screen">
       <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-sand-light to-transparent pointer-events-none" />
       <span className="pointer-events-none absolute right-[-.06em] top-20 font-display text-[21vw] font-extrabold leading-none text-charcoal/[.025]" aria-hidden="true">RGI</span>
-      <div className="container-px relative">
+      <div data-reveal="up" className="container-px relative">
         <header data-reveal="left" className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Rasulov GI / Katalog</p>

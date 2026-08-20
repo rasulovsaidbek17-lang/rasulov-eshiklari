@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowDownRight, ArrowRight, Phone, Sparkles } from 'lucide-react'
 import { site } from '../data/site'
+import { useCountUp } from '../hooks/useCountUp'
 
 export default function Hero() {
   return (
@@ -78,9 +79,9 @@ export default function Hero() {
             </a>
           </div>
           <div className="mt-11 flex flex-wrap gap-x-8 gap-y-4 border-t border-ivory/15 pt-5 opacity-0 animate-fadeUp motion-reduce:opacity-100" style={{ animationDelay: '880ms' }}>
-            <HeroMetric value="10+" label="yillik tajriba" />
-            <HeroMetric value="500+" label="tayyor loyiha" />
-            <HeroMetric value="100%" label="individual yondashuv" />
+            <HeroMetric end={34} suffix="+" label="yillik tajriba" />
+            <HeroMetric end={500000} suffix="+" label="buyurtma" />
+            <HeroMetric end={100} suffix="%" label="individual yondashuv" />
           </div>
         </div>
       </div>
@@ -93,11 +94,13 @@ export default function Hero() {
   )
 }
 
-function HeroMetric({ value, label }) {
+function HeroMetric({ end, suffix, label }) {
+  const { ref, display } = useCountUp(end, { duration: 1800, suffix })
+
   return (
-    <div className="flex items-center gap-2.5">
+    <div ref={ref} className="flex items-center gap-2.5">
       <Sparkles size={13} className="text-bronze-300" strokeWidth={1.5} />
-      <p className="text-xs text-ivory/65"><strong className="font-display text-base text-ivory mr-1.5">{value}</strong>{label}</p>
+      <p className="text-xs text-ivory/65"><strong className="font-display text-base text-ivory mr-1.5 tabular-nums">{display}</strong>{label}</p>
     </div>
   )
 }

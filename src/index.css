@@ -180,6 +180,7 @@ select:focus-visible {
 @keyframes statementGlow { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
 @media (max-width: 767px) {
   .loader-mark { gap: .65rem; }
+  .route-transition { animation-duration: .9s; }
 }
   .loader-mark small { font-size: 7px; letter-spacing: .16em; }
 

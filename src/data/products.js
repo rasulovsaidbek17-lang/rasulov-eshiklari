@@ -1,7 +1,7 @@
 export const categories = [
   {
-    id: 'ichki-eshiklar',
-    name: 'Ichki eshiklar',
+    id: 'premium-ultra',
+    name: 'Premium ultra',
     image: '/images/doors/interior-door-1.jpg',
     filterKey: 'eshiklar',
   },
@@ -39,6 +39,17 @@ export const categories = [
 
 export const catalogGroups = [
   {
+    id: 'eshiklar',
+    name: 'Eshiklar',
+    image: '/images/doors/interior-door-1.jpg',
+    subcategories: [
+      { key: 'oynali', label: 'Oynali eshik', image: '/images/doors/interior-door-1.jpg' },
+      { key: 'dekorli', label: 'Dekorli eshik', image: '/images/doors/interior-door-1-3.4.jpg' },
+      { key: 'obkladli', label: 'Obkladli eshik', image: '/images/doors/entrance-door-1-1.jpg' },
+      { key: 'obkladsiz', label: 'Obkladsiz eshik', image: '/images/doors/interior-door-3.jpg' },
+    ],
+  },
+  {
     id: 'mebellar',
     name: 'Mebellar',
     image: '/images/kitchen/kitchen-1.jpg',
@@ -47,16 +58,7 @@ export const catalogGroups = [
       { key: 'oshxona', label: 'Oshxona uchun', image: '/images/kitchen/kitchen-1.jpg' },
     ],
   },
-  {
-    id: 'eshiklar',
-    name: 'Eshiklar',
-    image: '/images/doors/interior-door-1.jpg',
-    subcategories: [
-      { key: 'oynali', label: 'Oynali eshik', image: '/images/doors/interior-door-1.jpg' },
-      { key: 'obkladli', label: 'Obkladli eshik', image: '/images/doors/entrance-door-1-1.jpg' },
-      { key: 'obkladsiz', label: 'Obkladsiz eshik', image: '/images/doors/interior-door-3.jpg' },
-    ],
-  },
+  
 ]
 
 export const filters = [
@@ -70,19 +72,24 @@ export const filters = [
 
 export const products = [
   {
-    id: 'ichki-eshik-101',
-    name: 'Ichki eshik — Model 101',
+    id: 'premium-ultra',
+    name: 'Knyaz',
     category: 'eshiklar',
-    subcategory: 'oynali',
-    categoryLabel: 'Ichki eshiklar',
+    subcategory: 'dekorli',
+    categoryLabel: 'Premium ultra',
     price: 1450000,
-    priceLabel: '1 450 000 so‘m',
+    priceLabel: 'Narx so‘rov bo‘yicha',
     image: '/images/doors/interior-door-1-3.4.jpg',
     gallery: ['/images/doors/interior-door-1.jpg', '/images/doors/interior-door-2.jpg', '/images/doors/interior-door-1.jpg'],
-    description: 'Zamonaviy minimalist ichki eshik, sifatli MDF asosida tayyorlangan. Har qanday interyer uslubiga mos keladi.',
+    colorVariants: [
+      { name: 'Oq', swatch: '#F5F2EC', image: '/images/doors/interior-door-1.jpg' },
+      { name: 'Yong‘oq', swatch: '#5A3A29', image: '/images/doors/interior-door-2.jpg' },
+      // { name: 'Kul rang', swatch: '#9c9691', image: '/images/doors/interior-door-1.jpg' },
+    ],
+    description: 'Knyaz eshigi — saroylar mahobati va oliy did uyg‘unligi. Tilla tutqichli aslzoda oq dizayn uyingiz ko‘rkidir.',
     material: 'MDF, tabiiy yog‘och qoplama',
-    colors: ['Qora', 'Yong‘oq', 'Kul rang'],
-    size: '2000 x 800 mm',
+    colors: ['Qora', 'Yong‘oq'],
+    size: 'Olchov asosida tayyorlanadi',
     warranty: '2 yil kafolat',
   },
   {

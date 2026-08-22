@@ -15,6 +15,16 @@ export default function App() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [location.key])
 
+  useEffect(() => {
+    if (location.hash !== '#aloqa') return undefined
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById('aloqa')?.scrollIntoView({ behavior: 'smooth' })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [location.hash])
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />

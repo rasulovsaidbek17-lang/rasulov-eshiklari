@@ -11,6 +11,6 @@ export const site = {
   instagram: '@rasulov.eshiklarii',
   instagramHref: 'https://instagram.com/rasulov.eshiklarii',
   address: 'Siz qayerda bolsangiz ham biz sizga yetkazib beramiz',
-  email: 'info@rasulov-mebel.uz',
+  email: 'info@rasulov-mebel1.uz',
   // whatsappHref: 'https://wa.me/998974432828',
 }

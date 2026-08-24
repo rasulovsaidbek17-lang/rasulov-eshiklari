@@ -178,31 +178,11 @@ export const products = [
     ],
     description: 'Venera — Go‘zallik va nafislik timsoli bo‘lgan eshik ',
     material: 'MDF, tabiiy yog‘och qoplama',
-    // colors: ['Oq', 'Yong‘oq', 'Gold'],
+    colors: ['Qora', 'Yong‘oq'],
     size: 'Olchov asosida tayyorlanadi',
     warranty: '5 yil kafolat',
   },
- {
-    id: 'elegant-venera',
-    name: 'Elegant Venera',
-    category: 'eshiklar',
-    subcategory: 'obkladli',
-    categoryLabel: 'Obkladli eshiklar',
-    price: null,
-    priceLabel: 'Narx so‘rov bo‘yicha',
-    image: '/images/doors/elegant-venera-oq.jpg',
-    // gallery: ['/images/doors/versal-oq.jpg', '/images/doors/interior-door-2.jpg', '/images/doors/versal-oq.jpg'],
-    colorVariants: [
-      { name: 'Oq', swatch: '#F5F2EC', image: '/images/doors/elegant-venera-oq.jpg' },
-      { name: 'Yong‘oq', swatch: '#5A3A29', image: '/images/doors/elegant-venera-orex.jpg' },
-      // { name: 'Gold', swatch: '#C5A059', image: '/images/doors/elegant-venera-gold.jpg' },
-    ],
-    description: 'Elegant Venera — Go‘zallik va nafislik timsoli bo‘lgan eshik ',
-    material: 'MDF, tabiiy yog‘och qoplama',
-    // colors: ['Oq', 'Yong‘oq', 'Gold'],
-    size: 'Olchov asosida tayyorlanadi',
-    warranty: '5 yil kafolat',
-  },
+
 
   /* Furniture is not available yet. Uncomment these products when they launch.
   {
@@ -272,7 +252,25 @@ export const products = [
   */
 
 
-
+{
+    id: 'ichki-eshik-rewotkali-106',
+    name: 'Ichki eshik — Model 106',
+    category: 'eshiklar',
+    subcategory: 'oynali',
+    categoryLabel: 'Ichki eshiklar',
+    price: 1600000,
+    priceLabel: '1 600 000 so‘m',
+    image: '/images/doors/interior-door-6.jpg',
+    gallery: [
+    '/images/doors/interior-door-6.jpg',
+    '/images/doors/interior-door-6.jpg',
+  ],
+  description: 'Zamonaviy dizaynli ichki eshik, yuqori sifatli material bilan.',
+  material: 'MDF, laminat qoplama',
+  colors: ['Oq', 'Kul rang', 'Yong‘oq'],
+  size: '2000 x 800 mm',
+  warranty: '2 yil kafolat',
+},
 ]
 
 export const portfolioProjects = [

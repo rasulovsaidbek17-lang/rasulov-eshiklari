@@ -10,7 +10,7 @@ export const site = {
   telegramHref: 'https://t.me/rasulovnomer1',
   instagram: '@rasulov.eshiklarii',
   instagramHref: 'https://instagram.com/rasulov.eshiklarii',
-  address: 'Siz qayerda bolsan ham biz sizga yetkazib beramiz',
+  address: 'Siz qayerda bolsangiz ham biz sizga yetkazib beramiz',
   email: 'info@rasulov-mebel.uz',
   // whatsappHref: 'https://wa.me/998974432828',
 }

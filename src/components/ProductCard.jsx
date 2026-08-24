@@ -53,7 +53,7 @@ export default function ProductCard({ product, index = 0 }) {
             Batafsil
           </Link>
           <a
-            href={site.whatsappHref}
+            href={site.phoneHref}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-bronze-500 py-3 text-center text-sm font-semibold text-ivory transition-all duration-300 hover:-translate-y-0.5 hover:bg-bronze-400 hover:shadow-[0_10px_22px_-10px_rgba(168,121,62,0.6)]"

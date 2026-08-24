@@ -4,7 +4,7 @@ import { useSEO } from '../hooks/useSEO'
 export default function ContactPage() {
   useSEO({
     title: 'Aloqa — Rasulov GI',
-    description: 'Toshkentdagi Rasulov GI ustaxonasi bilan bog‘laning: telefon, Telegram, Instagram va manzil.',
+    description: '',
   })
 
   return (

@@ -16,7 +16,7 @@ export default function Footer() {
             />
           </Link>
           <p className="text-ivory/50 text-sm leading-relaxed max-w-xs">
-            Sifatli eshiklar va zamonaviy mebellar — uyingiz uchun eng yaxshi tanlov.
+            Sifatli eshiklar — uyingiz uchun eng yaxshi tanlov.
           </p>
           <div className="flex items-center gap-3 mt-5">
             <a href={site.telegramHref} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-ivory/70 hover:text-bronze-300 hover:bg-white/10 transition-colors">
@@ -34,9 +34,8 @@ export default function Footer() {
         <div>
           <h4 className="text-ivory font-display font-bold text-sm mb-4 tracking-wide">MENYU</h4>
           <ul className="space-y-2.5 text-sm text-ivory/55">
-            <li><Link to="/" className="hover:text-bronze-300 transition-colors">Bosh sahifa</Link></li>
             <li><Link to="/mahsulotlar" className="hover:text-bronze-300 transition-colors">Katalog</Link></li>
-            <li><Link to="/#aloqa" className="hover:text-bronze-300 transition-colors">Biz bilan bog‘laning</Link></li>
+            <li><Link to="/aloqa" className="hover:text-bronze-300 transition-colors">Biz bilan bog‘laning</Link></li>
           </ul>
         </div>
 

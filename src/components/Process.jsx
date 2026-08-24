@@ -5,7 +5,7 @@ import { useReveal } from '../hooks/useReveal'
 const steps = [
   ['01', 'Konsultatsiya', 'Ehtiyojingiz, uslubingiz va makon imkoniyatlarini birgalikda aniqlaymiz.'],
   ['02', 'O‘lchov', 'Mutaxassisimiz joyiga chiqib, har bir parametrni aniqlik bilan o‘lchaydi.'],
-  ['03', 'Dizayn', 'Material, rang va funksionallikni makoningizga mos yechimga aylantiramiz.'],
+  ['03', 'Dizayn', 'Material, rang va funksionallikga mos yechimga aylantiramiz.'],
   ['04', 'Ishlab chiqarish', 'Loyiha o‘z ustaxonamizda sifat nazorati ostida tayyorlanadi.'],
   ['05', 'O‘rnatish', 'Yakuniy montajni toza, aniq va belgilangan muddatda amalga oshiramiz.'],
 ]

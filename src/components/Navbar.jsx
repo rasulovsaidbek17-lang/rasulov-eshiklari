@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
 import { site } from '../data/site'
 
 const links = [
-  { to: '/', label: 'Bosh sahifa' },
   { to: '/mahsulotlar', label: 'Mahsulotlar' },
-  { to: '/#aloqa', label: 'Biz bilan bog‘laning' },
+  { to: '/aloqa', label: 'Biz bilan bog‘laning' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const location = useLocation()
-  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -29,17 +26,19 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled || open || !isHome ? 'bg-charcoal/95 backdrop-blur-md border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)]' : 'bg-transparent'
-      }`}
+      className="fixed top-0 inset-x-0 z-50 bg-charcoal/95 border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300"
     >
       <nav className="container-px flex items-center justify-between h-[72px] md:h-20" aria-label="Asosiy navigatsiya">
-        <Link to="/" className="flex items-center shrink-0" onClick={() => setOpen(false)}>
+        <Link to="/" className="flex items-center shrink-0 gap-3" onClick={() => setOpen(false)}>
+          
           <img
             src="/images/logo.png"
             alt={`${site.brand} — ${site.brandTagline}`}
             className="h-[3.45rem] md:h-[3.79rem] w-auto transition-transform duration-500 ease-out hover:scale-105"
           />
+          <span className="hidden border-l border-bronze-400/60 pl-3 font-display text-[13px] font-semibold tracking-[.16em] text-bronze-300 uppercase xl:inline">
+              Siz tanigan brend
+          </span>
         </Link>
 
         <ul className="hidden lg:flex items-center gap-9 font-body text-sm text-ivory/80">

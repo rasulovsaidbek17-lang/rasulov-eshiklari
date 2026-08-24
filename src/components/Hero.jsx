@@ -35,7 +35,7 @@ export default function Hero() {
               className="block opacity-0 animate-fadeUp motion-reduce:opacity-100"
               style={{ animationDelay: '260ms' }}
             >
-              MAKONINGIZGA
+              UYINGIZGA
             </span>
             <span
               className="block opacity-0 animate-fadeUp motion-reduce:opacity-100"

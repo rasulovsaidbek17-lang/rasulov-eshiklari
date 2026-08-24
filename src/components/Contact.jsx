@@ -3,17 +3,7 @@ import { Phone, Send, Instagram, MapPin, Mail, CheckCircle2 } from 'lucide-react
 import { site } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 
-const interestOptions = [
-  'Ichki eshiklar',
-  'Kirish eshiklari',
-  'Oshxona mebellari',
-  'Yotoqxona mebellari',
-  'Mehmonxona mebellari',
-  'Shkaflar',
-  'Boshqa',
-]
-
-const initialForm = { name: '', phone: '', interest: '', message: '' }
+const initialForm = { name: '', phone: '' }
 
 function validate(form) {
   const errors = {}
@@ -24,12 +14,6 @@ function validate(form) {
   if (phoneDigits.length < 9) {
     errors.phone = 'Telefon raqamini to‘g‘ri kiriting'
   }
-  if (!form.interest) {
-    errors.interest = 'Mahsulot turini tanlang'
-  }
-  if (!form.message.trim() || form.message.trim().length < 5) {
-    errors.message = 'Xabaringizni yozing'
-  }
   return errors
 }
 
@@ -38,6 +22,8 @@ export default function Contact() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -45,21 +31,27 @@ export default function Contact() {
     if (errors[name]) setErrors((er) => ({ ...er, [name]: undefined }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate(form)
     setErrors(errs)
-    if (Object.keys(errs).length === 0) {
-      const message = [
-        'Assalomu alaykum! Sayt orqali yangi so‘rov:',
-        `Ism: ${form.name.trim()}`,
-        `Telefon: ${form.phone.trim()}`,
-        `Qiziqish: ${form.interest}`,
-        `Xabar: ${form.message.trim()}`,
-      ].join('\n')
-      window.open(`${site.whatsappHref}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
+    if (Object.keys(errs).length > 0) return
+
+    setIsSubmitting(true)
+    setSubmitError('')
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name.trim(), phone: form.phone.trim() }),
+      })
+      if (!response.ok) throw new Error('Request failed')
       setSubmitted(true)
       setForm(initialForm)
+    } catch {
+      setSubmitError('Xabar yuborilmadi. Iltimos, qayta urinib ko‘ring.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -81,11 +73,11 @@ export default function Contact() {
 
             <div className="rounded-2xl overflow-hidden border border-charcoal/8 aspect-[16/10] mt-8">
               <iframe
-                title="Xarita — Toshkent"
+                title="Xarita — O‘rta Osiyo"
                 className="h-full w-full grayscale-[15%]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Tashkent&output=embed"
+                src="https://www.google.com/maps?q=Central+Asia&z=4&output=embed"
               />
             </div>
           </div>
@@ -94,55 +86,21 @@ export default function Contact() {
             {submitted && (
               <div className="flex items-center gap-2 rounded-xl bg-bronze-50 text-bronze-700 text-sm px-4 py-3">
                 <CheckCircle2 size={18} />
-                WhatsApp ochildi. Xabaringizni yuborish uchun tasdiqlang.
+                Ma’lumotlaringiz yuborildi. Tez orada siz bilan bog‘lanamiz.
               </div>
             )}
 
-            <Field label="Ismingiz" name="name" value={form.name} onChange={handleChange} error={errors.name} placeholder="Ismingizni kiriting" />
-            <Field label="Telefon raqamingiz" name="phone" value={form.phone} onChange={handleChange} error={errors.phone} placeholder="+998 90 123 45 67" type="tel" />
+            {submitError && <p className="rounded-xl bg-red-50 text-red-600 text-sm px-4 py-3">{submitError}</p>}
 
-            <div>
-              <label htmlFor="interest" className="block text-sm font-semibold text-charcoal mb-2">
-                Qaysi mahsulot qiziqtiradi?
-              </label>
-              <select
-                id="interest"
-                name="interest"
-                value={form.interest}
-                onChange={handleChange}
-                className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-charcoal outline-none transition-colors ${
-                  errors.interest ? 'border-red-400' : 'border-charcoal/15 focus:border-bronze-400'
-                }`}
-              >
-                <option value="">Tanlang</option>
-                {interestOptions.map((o) => (
-                  <option key={o} value={o}>{o}</option>
-                ))}
-              </select>
-              {errors.interest && <p className="mt-1.5 text-xs text-red-500">{errors.interest}</p>}
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-semibold text-charcoal mb-2">Xabar</label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                value={form.message}
-                onChange={handleChange}
-                placeholder="Xabaringizni yozing..."
-                className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-charcoal outline-none transition-colors resize-none ${
-                  errors.message ? 'border-red-400' : 'border-charcoal/15 focus:border-bronze-400'
-                }`}
-              />
-              {errors.message && <p className="mt-1.5 text-xs text-red-500">{errors.message}</p>}
-            </div>
+            <Field label="Ismingiz" name="name" value={form.name} onChange={handleChange} error={errors.name} placeholder="Ismingizni kiriting" required />
+            <Field label="Telefon raqamingiz" name="phone" value={form.phone} onChange={handleChange} error={errors.phone} placeholder="+998 90 123 45 67" type="tel" required />
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="w-full rounded-full bg-bronze-500 hover:bg-bronze-400 text-ivory font-semibold text-sm py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-10px_rgba(168,121,62,0.55)]"
             >
-              Yuborish
+              {isSubmitting ? 'Yuborilmoqda...' : 'Yuborish'}
             </button>
           </form>
         </div>
@@ -173,7 +131,7 @@ function ContactRow({ icon: Icon, label, value, href }) {
   return content
 }
 
-function Field({ label, name, value, onChange, error, placeholder, type = 'text' }) {
+function Field({ label, name, value, onChange, error, placeholder, type = 'text', required = false }) {
   return (
     <div>
       <label htmlFor={name} className="block text-sm font-semibold text-charcoal mb-2">{label}</label>
@@ -184,6 +142,7 @@ function Field({ label, name, value, onChange, error, placeholder, type = 'text'
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        required={required}
         className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-charcoal outline-none transition-colors ${
           error ? 'border-red-400' : 'border-charcoal/15 focus:border-bronze-400'
         }`}

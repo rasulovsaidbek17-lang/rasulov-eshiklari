@@ -8,14 +8,13 @@ import { useSEO } from '../hooks/useSEO'
 
 const catalogFilters = [
   { key: 'barchasi', label: 'Barchasi' },
-  { key: 'mebellar', label: 'Mebellar' },
   { key: 'eshiklar', label: 'Eshiklar' },
 ]
 
 export default function ProductsPage() {
   useSEO({
-    title: 'Mahsulotlar — Eshiklar va mebel katalogi | Rasulov GI',
-    description: 'Ichki va kirish eshiklari, oshxona, yotoqxona, mehmonxona mebellari va shkaflar katalogi. Narxlar va rang variantlari bilan.',
+    title: 'Mahsulotlar — Eshiklar katalogi | Rasulov GI',
+    description: 'Ichki va kirish eshiklari katalogi. Narxlar va rang variantlari bilan.',
   })
 
   const [params, setParams] = useSearchParams()
@@ -27,7 +26,6 @@ export default function ProductsPage() {
   const filtered = useMemo(() => {
     const result = products.filter((product) => {
       const matchesCategory = activeFilter === 'barchasi'
-        || (activeFilter === 'mebellar' && product.category !== 'eshiklar')
         || product.category === activeFilter
       const matchesSubcategory = !activeSubcategory || product.subcategory === activeSubcategory
       return matchesCategory && matchesSubcategory
@@ -40,9 +38,7 @@ export default function ProductsPage() {
     () => catalogFilters.reduce((counts, filter) => {
       counts[filter.key] = filter.key === 'barchasi'
         ? products.length
-        : filter.key === 'mebellar'
-          ? products.filter((product) => product.category !== 'eshiklar').length
-          : products.filter((product) => product.category === filter.key).length
+        : products.filter((product) => product.category === filter.key).length
       return counts
     }, {}),
     []
@@ -69,8 +65,8 @@ export default function ProductsPage() {
         <header data-reveal="left" className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Rasulov GI / Katalog</p>
-            <h1 className="font-display font-extrabold text-4xl md:text-6xl text-charcoal leading-[.98] tracking-tight">SIZNING MAKONINGIZ UCHUN</h1>
-            <p className="mt-5 max-w-xl text-charcoal-400 leading-relaxed">Eshik va mebel kolleksiyalarini bir joyda ko‘ring. Har bir model o‘lcham, rang va material bo‘yicha moslashtiriladi.</p>
+            {/* <h1 className="font-display font-extrabold text-4xl md:text-6xl text-charcoal leading-[.98] tracking-tight"></h1>
+            <p className="mt-5 max-w-xl text-charcoal-400 leading-relaxed"></p> */}
           </div>
           <div className="shrink-0 border-l-2 border-bronze-400 pl-4">
             <p className="font-display text-3xl font-extrabold text-charcoal">{products.length.toString().padStart(2, '0')}</p>

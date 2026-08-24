@@ -21,7 +21,7 @@ export function LuxuryLoader({ completed = false }) {
     <div className={`luxury-loader ${completed ? 'is-complete' : ''}`} aria-hidden="true">
       <div className="loader-ring" />
       <div className="loader-mark"><span>RGI</span><i /><small>INTERIOR OBJECTS</small></div>
-      <p>MAKONINGIZGA XARAKTER BERAMIZ</p>
+      <p></p>
       <div className="loader-progress"><span /></div>
     </div>
   )

@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, X, Phone, Languages } from 'lucide-react'
 import { site } from '../data/site'
-
-const links = [
-  { to: '/mahsulotlar', label: 'Mahsulotlar' },
-  { to: '/aloqa', label: 'Biz bilan bog‘laning' },
-]
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { language, setLanguage, t } = useLanguage()
+  const links = [
+    { to: '/mahsulotlar', label: t.nav.products },
+    { to: '/aloqa', label: t.nav.contact },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -28,7 +29,7 @@ export default function Navbar() {
     <header
       className="fixed top-0 inset-x-0 z-50 bg-charcoal/95 border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300"
     >
-      <nav className="container-px flex items-center justify-between h-[72px] md:h-20" aria-label="Asosiy navigatsiya">
+      <nav className="container-px flex items-center justify-between h-[72px] md:h-20" aria-label={t.nav.menu}>
         <Link to="/" className="flex items-center shrink-0 gap-3" onClick={() => setOpen(false)}>
           
           <img
@@ -37,7 +38,7 @@ export default function Navbar() {
             className="h-[3.45rem] md:h-[3.79rem] w-auto transition-transform duration-500 ease-out hover:scale-105"
           />
           <span className="hidden border-l border-bronze-400/60 pl-3 font-display text-[13px] font-semibold tracking-[.16em] text-bronze-300 uppercase xl:inline">
-              Siz tanigan brend
+              {t.nav.brand}
           </span>
         </Link>
 
@@ -59,19 +60,29 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden lg:flex items-center">
-          <a
-            href={site.phoneHref}
-            className="inline-flex items-center gap-2 rounded-full bg-bronze-500 hover:bg-bronze-400 text-ivory text-sm font-semibold px-5 py-2.5 transition-colors"
-          >
-            <Phone size={15} />
-            Qo‘ng‘iroq qilish
-          </a>
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-1.5 text-ivory/70 text-xs font-semibold" title="Language">
+              <Languages size={15} />
+              <select value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Language" className="bg-transparent text-ivory outline-none cursor-pointer">
+                <option value="uz" className="text-charcoal">UZ</option>
+                <option value="ru" className="text-charcoal">RU</option>
+                <option value="en" className="text-charcoal">EN</option>
+                <option value="kk" className="text-charcoal">KK</option>
+                <option value="tg" className="text-charcoal">TG</option>
+                <option value="tk" className="text-charcoal">TK</option>
+              </select>
+            </label>
+            <a href={site.phoneHref} className="inline-flex items-center gap-2 rounded-full bg-bronze-500 hover:bg-bronze-400 text-ivory text-sm font-semibold px-5 py-2.5 transition-colors">
+              <Phone size={15} />
+              {t.nav.call}
+            </a>
+          </div>
         </div>
 
         <button
           className="lg:hidden text-ivory p-2 -mr-2"
           onClick={() => setOpen((v) => !v)}
-          aria-label={open ? 'Menyuni yopish' : 'Menyuni ochish'}
+          aria-label={open ? t.nav.close : t.nav.open}
           aria-expanded={open}
         >
           {open ? <X size={26} /> : <Menu size={26} />}
@@ -95,13 +106,26 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <div className="container-px pb-4">
+            <label className="flex items-center gap-2 text-ivory/70 text-sm font-semibold">
+              <Languages size={16} />
+              <select value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Language" className="bg-transparent text-ivory outline-none cursor-pointer">
+                <option value="uz" className="text-charcoal">O‘zbekcha (UZ)</option>
+                <option value="ru" className="text-charcoal">Русский (RU)</option>
+                <option value="en" className="text-charcoal">English (EN)</option>
+                <option value="kk" className="text-charcoal">Қазақша (KK)</option>
+                <option value="tg" className="text-charcoal">Тоҷикӣ (TG)</option>
+                <option value="tk" className="text-charcoal">Türkmençe (TK)</option>
+              </select>
+            </label>
+          </div>
           <div className="container-px pb-6">
             <a
               href={site.phoneHref}
               className="flex items-center justify-center gap-2 rounded-full bg-bronze-500 text-ivory text-sm font-semibold px-5 py-3.5 w-full"
             >
               <Phone size={16} />
-              Qo‘ng‘iroq qilish
+              {t.nav.call}
             </a>
           </div>
         </div>

@@ -5,13 +5,15 @@ import { catalogGroups, products } from '../data/products'
 import ProductCard from '../components/ProductCard'
 import { useReveal } from '../hooks/useReveal'
 import { useSEO } from '../hooks/useSEO'
-
-const catalogFilters = [
-  { key: 'barchasi', label: 'Barchasi' },
-  { key: 'eshiklar', label: 'Eshiklar' },
-]
+import { useLanguage } from '../context/LanguageContext'
+import { getLocalizedCategoryName } from '../data/productTranslations'
 
 export default function ProductsPage() {
+  const { language, t } = useLanguage()
+  const catalogFilters = [
+    { key: 'barchasi', label: t.catalog.label },
+    { key: 'eshiklar', label: t.catalog.doors },
+  ]
   useSEO({
     title: 'Mahsulotlar — Eshiklar katalogi | Rasulov GI',
     description: 'Ichki va kirish eshiklari katalogi. Narxlar va rang variantlari bilan.',
@@ -70,12 +72,12 @@ export default function ProductsPage() {
           </div>
           <div className="shrink-0 border-l-2 border-bronze-400 pl-4">
             <p className="font-display text-3xl font-extrabold text-charcoal">{products.length.toString().padStart(2, '0')}</p>
-            <p className="mt-1 text-[10px] font-semibold tracking-[.2em] text-charcoal-400 uppercase">tayyor model</p>
+            <p className="mt-1 text-[10px] font-semibold tracking-[.2em] text-charcoal-400 uppercase">{t.catalog.models}</p>
           </div>
         </header>
 
-        <section data-reveal="right" className="mt-12 border-y border-charcoal/10 py-5" aria-label="Mahsulot kategoriyalari">
-          <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Kategoriyalar">
+        <section data-reveal="right" className="mt-12 border-y border-charcoal/10 py-5" aria-label={t.footer.categories}>
+          <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label={t.footer.categories}>
             {catalogFilters.map((filter) => (
               <button
                 key={filter.key}
@@ -92,9 +94,9 @@ export default function ProductsPage() {
         </section>
 
         {activeGroup && (
-          <section data-reveal="left" className="mt-6 border-b border-charcoal/10 pb-6" aria-label={`${activeGroup.name} kategoriyalari`}>
-            <p className="mb-3 text-xs font-semibold tracking-[.18em] text-charcoal-400 uppercase">{activeGroup.name} turlari</p>
-            <div className="flex flex-wrap gap-2" role="group" aria-label={`${activeGroup.name} kichik kategoriyalari`}>
+          <section data-reveal="left" className="mt-6 border-b border-charcoal/10 pb-6" aria-label={`${getLocalizedCategoryName(activeGroup.name, activeGroup.id, language)} ${t.catalog.types}`}>
+            <p className="mb-3 text-xs font-semibold tracking-[.18em] text-charcoal-400 uppercase">{getLocalizedCategoryName(activeGroup.name, activeGroup.id, language)} {t.catalog.types}</p>
+            <div className="flex flex-wrap gap-2" role="group" aria-label={`${getLocalizedCategoryName(activeGroup.name, activeGroup.id, language)} ${t.catalog.types}`}>
               <button
                 type="button"
                 onClick={() => updateSubcategory('barchasi')}
@@ -102,7 +104,7 @@ export default function ProductsPage() {
                   !activeSubcategory ? 'border-charcoal bg-charcoal text-ivory' : 'border-charcoal/10 bg-ivory text-charcoal-400 hover:border-charcoal/30 hover:text-charcoal'
                 }`}
               >
-                Barchasi
+                {t.catalog.label}
               </button>
               {activeGroup.subcategories.map((subcategory) => (
                 <button
@@ -113,7 +115,7 @@ export default function ProductsPage() {
                     activeSubcategory === subcategory.key ? 'border-charcoal bg-charcoal text-ivory' : 'border-charcoal/10 bg-ivory text-charcoal-400 hover:border-charcoal/30 hover:text-charcoal'
                   }`}
                 >
-                  {subcategory.label}
+                  {getLocalizedCategoryName(subcategory.label, subcategory.key, language)}
                 </button>
               ))}
             </div>
@@ -121,7 +123,7 @@ export default function ProductsPage() {
         )}
 
         <div className="mt-8 flex items-center justify-between gap-4">
-          <p className="text-xs font-semibold tracking-[.18em] text-charcoal-400 uppercase">{filtered.length} ta mahsulot</p>
+          <p className="text-xs font-semibold tracking-[.18em] text-charcoal-400 uppercase">{filtered.length} {t.catalog.products}</p>
         </div>
 
         <div className="relative mt-5 grid gap-4 pb-16 sm:grid-cols-2 lg:gap-5 lg:grid-cols-3">
@@ -131,9 +133,9 @@ export default function ProductsPage() {
           {filtered.length === 0 && (
             <div className="col-span-full flex flex-col items-center justify-center rounded-2xl border border-dashed border-charcoal/15 bg-white px-6 py-20 text-center">
               <PackageOpen size={34} strokeWidth={1.3} className="text-bronze-500" />
-              <h2 className="mt-5 font-display text-xl font-bold text-charcoal">Mos mahsulot topilmadi</h2>
-              <p className="mt-2 max-w-sm text-sm text-charcoal-400">Boshqa kategoriyani tanlab yana bir bor urinib ko‘ring.</p>
-              <button type="button" onClick={() => setParams({})} className="mt-6 rounded-full bg-charcoal px-5 py-3 text-sm font-semibold text-ivory transition-colors hover:bg-charcoal-600">Barchasini ko‘rish</button>
+              <h2 className="mt-5 font-display text-xl font-bold text-charcoal">{t.catalog.empty}</h2>
+              <p className="mt-2 max-w-sm text-sm text-charcoal-400">{t.catalog.emptyText}</p>
+              <button type="button" onClick={() => setParams({})} className="mt-6 rounded-full bg-charcoal px-5 py-3 text-sm font-semibold text-ivory transition-colors hover:bg-charcoal-600">{t.catalog.viewAll}</button>
             </div>
           )}
         </div>

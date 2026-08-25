@@ -5,15 +5,19 @@ import { products } from '../data/products'
 import { site } from '../data/site'
 import ProductCard from '../components/ProductCard'
 import { useSEO } from '../hooks/useSEO'
+import { useLanguage } from '../context/LanguageContext'
+import { getLocalizedColorName, getLocalizedProduct } from '../data/productTranslations'
 
 export default function ProductDetail() {
   const { id } = useParams()
   const product = products.find((p) => p.id === id)
   const [activeColor, setActiveColor] = useState(0)
+  const { language, t } = useLanguage()
+  const localizedProduct = getLocalizedProduct(product, language)
 
   useSEO({
-    title: product ? `${product.name} — Rasulov GI` : 'Mahsulot topilmadi',
-    description: product?.description,
+    title: localizedProduct ? `${localizedProduct.name} — Rasulov GI` : 'Mahsulot topilmadi',
+    description: localizedProduct?.description,
   })
 
   if (!product) return <Navigate to="/mahsulotlar" replace />
@@ -35,21 +39,21 @@ export default function ProductDetail() {
       <div className="container-px">
         <Link to="/mahsulotlar" className="inline-flex items-center gap-1.5 text-charcoal-400 hover:text-charcoal text-sm font-medium mb-8">
           <ChevronLeft size={16} />
-          Katalogga qaytish
+          {t.detail.back}
         </Link>
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           <div>
             <div className="lg:hidden mb-6">
               <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-3">
-                {product.categoryLabel}
+                {localizedProduct.categoryLabel}
               </p>
-              <h1 className="font-display font-extrabold text-3xl text-charcoal leading-tight">{product.name}</h1>
+              <h1 className="font-display font-extrabold text-3xl text-charcoal leading-tight">{localizedProduct.name}</h1>
             </div>
             <div className={`aspect-[3/4] lg:aspect-[4/3] overflow-hidden ${product.category === 'eshiklar' ? 'bg-sand-light' : 'bg-white'}`}>
               <img
                 src={selectedVariant.image}
-                alt={`${product.name} — ${selectedVariant.name}`}
+                alt={`${localizedProduct.name} — ${selectedVariant.name}`}
                 className={`h-full w-full ${product.category === 'eshiklar' ? 'object-contain' : 'object-cover'}`}
               />
             </div>
@@ -57,18 +61,18 @@ export default function ProductDetail() {
 
           <div>
             <p className="hidden lg:block tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">
-              {product.categoryLabel}
+              {localizedProduct.categoryLabel}
             </p>
-            <h1 className="hidden lg:block font-display font-extrabold text-3xl md:text-4xl text-charcoal leading-tight">{product.name}</h1>
-            <p className="mt-4 font-display font-bold text-2xl text-bronze-600">{product.priceLabel}</p>
-            <p className="mt-5 text-charcoal-400 leading-relaxed">{product.description}</p>
+            <h1 className="hidden lg:block font-display font-extrabold text-3xl md:text-4xl text-charcoal leading-tight">{localizedProduct.name}</h1>
+            <p className="mt-4 font-display font-bold text-2xl text-bronze-600">{localizedProduct.priceLabel}</p>
+            <p className="mt-5 text-charcoal-400 leading-relaxed">{localizedProduct.description}</p>
 
             <dl className="mt-8 grid grid-cols-2 gap-5">
-              <Spec icon={Layers} label="Material" value={product.material} />
-              <Spec icon={Ruler} label="O‘lcham" value={product.size} />
+              <Spec icon={Layers} label={t.detail.material} value={localizedProduct.material} />
+              <Spec icon={Ruler} label={t.detail.size} value={localizedProduct.size} />
               <Spec
                 icon={Palette}
-                label="Ranglar"
+                label={t.detail.colors}
                 value={(
                   <span className="flex items-center gap-2">
                     {colorVariants.map((variant, index) => (
@@ -81,8 +85,8 @@ export default function ProductDetail() {
                             ? 'border-bronze-500 shadow-[0_0_0_2px_rgba(168,121,62,0.18)]'
                             : 'border-charcoal/25 hover:border-bronze-400'
                         }`}
-                        title={variant.name}
-                        aria-label={`${variant.name} rangini tanlash`}
+                        title={getLocalizedColorName(variant.name, language)}
+                        aria-label={`${getLocalizedColorName(variant.name, language)} ${t.detail.chooseColor}`}
                         aria-pressed={activeColor === index}
                       >
                         <span className="block h-full w-full rounded-full" style={{ backgroundColor: variant.swatch ?? colorSwatch(variant.name) }} />
@@ -91,7 +95,7 @@ export default function ProductDetail() {
                   </span>
                 )}
               />
-              <Spec icon={ShieldCheck} label="Kafolat" value={product.warranty} />
+              <Spec icon={ShieldCheck} label={t.detail.warranty} value={localizedProduct.warranty} />
             </dl>
 
             <div className="mt-10 flex gap-3">
@@ -101,7 +105,7 @@ export default function ProductDetail() {
                 className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-bronze-500 px-3 py-3 text-xs font-semibold text-ivory transition-all duration-300 hover:-translate-y-0.5 hover:bg-bronze-400 hover:shadow-[0_12px_26px_-10px_rgba(168,121,62,0.55)] sm:px-4 sm:text-sm"
               >
                 <Phone size={15} />
-                Telefon qilish
+                {t.detail.call}
               </a>
               <a
                 href={site.telegramHref}
@@ -118,7 +122,7 @@ export default function ProductDetail() {
 
         {related.length > 0 && (
           <div className="mt-20">
-            <h2 className="font-display font-bold text-2xl text-charcoal mb-6">O‘xshash mahsulotlar</h2>
+            <h2 className="font-display font-bold text-2xl text-charcoal mb-6">{t.detail.related}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
               {related.map((p, i) => (
                 <ProductCard key={p.id} product={p} index={i} />

@@ -2,23 +2,25 @@ import { useState } from 'react'
 import { Phone, Send, Instagram, MapPin, Mail, CheckCircle2 } from 'lucide-react'
 import { site } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
+import { useLanguage } from '../context/LanguageContext'
 
 const initialForm = { name: '', phone: '' }
 
-function validate(form) {
+function validate(form, t) {
   const errors = {}
   if (!form.name.trim() || form.name.trim().length < 2) {
-    errors.name = 'Ismingizni to‘liq kiriting'
+    errors.name = t.contact.invalidName
   }
   const phoneDigits = form.phone.replace(/\D/g, '')
   if (phoneDigits.length < 9) {
-    errors.phone = 'Telefon raqamini to‘g‘ri kiriting'
+    errors.phone = t.contact.invalidPhone
   }
   return errors
 }
 
 export default function Contact() {
   const ref = useReveal()
+  const { t } = useLanguage()
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
@@ -33,7 +35,7 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const errs = validate(form)
+    const errs = validate(form, t)
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
 
@@ -49,7 +51,7 @@ export default function Contact() {
       setSubmitted(true)
       setForm(initialForm)
     } catch {
-      setSubmitError('Xabar yuborilmadi. Iltimos, qayta urinib ko‘ring.')
+      setSubmitError(t.contact.error)
     } finally {
       setIsSubmitting(false)
     }
@@ -59,17 +61,17 @@ export default function Contact() {
     <section ref={ref} id="aloqa" className="bg-white">
       <div className="container-px py-16 md:py-24">
         <div data-reveal className="max-w-2xl mb-12">
-          <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Aloqa</p>
-          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal">BIZ BILAN BOG‘LANING</h2>
+          <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">{t.contact.kicker}</p>
+          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal">{t.contact.title}</h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           <div data-reveal className="space-y-6">
-            <ContactRow icon={Phone} label="Telefon" value={site.phone} href={site.phoneHref} />
-            <ContactRow icon={Send} label="Telegram" value={site.telegram} href={site.telegramHref} />
-            <ContactRow icon={Instagram} label="Instagram" value={site.instagram} href={site.instagramHref} />
-            <ContactRow icon={Mail} label="Email" value={site.email} href={`mailto:${site.email}`} />
-            <ContactRow icon={MapPin} label="Manzil" value={site.address} />
+            <ContactRow icon={Phone} label={t.contact.phoneLabel} value={site.phone} href={site.phoneHref} />
+            <ContactRow icon={Send} label={t.contact.telegram} value={site.telegram} href={site.telegramHref} />
+            <ContactRow icon={Instagram} label={t.contact.instagram} value={site.instagram} href={site.instagramHref} />
+            <ContactRow icon={Mail} label={t.contact.email} value={site.email} href={`mailto:${site.email}`} />
+            <ContactRow icon={MapPin} label={t.contact.address} value={t.contact.addressText} />
 
             <div className="rounded-2xl overflow-hidden border border-charcoal/8 aspect-[16/10] mt-8">
               <iframe
@@ -86,21 +88,21 @@ export default function Contact() {
             {submitted && (
               <div className="flex items-center gap-2 rounded-xl bg-bronze-50 text-bronze-700 text-sm px-4 py-3">
                 <CheckCircle2 size={18} />
-                Ma’lumotlaringiz yuborildi. Tez orada siz bilan bog‘lanamiz.
+                {t.contact.success}
               </div>
             )}
 
             {submitError && <p className="rounded-xl bg-red-50 text-red-600 text-sm px-4 py-3">{submitError}</p>}
 
-            <Field label="Ismingiz" name="name" value={form.name} onChange={handleChange} error={errors.name} placeholder="Ismingizni kiriting" required />
-            <Field label="Telefon raqamingiz" name="phone" value={form.phone} onChange={handleChange} error={errors.phone} placeholder="+998 90 123 45 67" type="tel" required />
+            <Field label={t.contact.name} name="name" value={form.name} onChange={handleChange} error={errors.name} placeholder={t.contact.namePlaceholder} inputMode="text" autoComplete="name" required />
+            <Field label={t.contact.phone} name="phone" value={form.phone} onChange={handleChange} error={errors.phone} placeholder="+998 90 123 45 67" type="tel" inputMode="numeric" autoComplete="tel" required />
 
             <button
               type="submit"
               disabled={isSubmitting}
               className="w-full rounded-full bg-bronze-500 hover:bg-bronze-400 text-ivory font-semibold text-sm py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-10px_rgba(168,121,62,0.55)]"
             >
-              {isSubmitting ? 'Yuborilmoqda...' : 'Yuborish'}
+              {isSubmitting ? t.contact.sending : t.contact.send}
             </button>
           </form>
         </div>
@@ -131,7 +133,7 @@ function ContactRow({ icon: Icon, label, value, href }) {
   return content
 }
 
-function Field({ label, name, value, onChange, error, placeholder, type = 'text', required = false }) {
+function Field({ label, name, value, onChange, error, placeholder, type = 'text', inputMode, autoComplete, required = false }) {
   return (
     <div>
       <label htmlFor={name} className="block text-sm font-semibold text-charcoal mb-2">{label}</label>
@@ -142,6 +144,8 @@ function Field({ label, name, value, onChange, error, placeholder, type = 'text'
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        inputMode={inputMode}
+        autoComplete={autoComplete}
         required={required}
         className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-charcoal outline-none transition-colors ${
           error ? 'border-red-400' : 'border-charcoal/15 focus:border-bronze-400'

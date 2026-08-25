@@ -1,5 +1,6 @@
 import { useReveal } from '../hooks/useReveal'
 import { useCountUp } from '../hooks/useCountUp'
+import { useLanguage } from '../context/LanguageContext'
 
 const stats = [
   { end: 34, suffix: '+', label: 'Yillik tajriba' },
@@ -9,6 +10,12 @@ const stats = [
 
 export default function About() {
   const ref = useReveal()
+  const { t } = useLanguage()
+  const stats = [
+    { end: 34, suffix: '+', label: t.about.experience },
+    { end: 500000, suffix: '+', label: t.about.orders },
+    { end: 100, suffix: '%', label: t.about.quality },
+  ]
   return (
     <section ref={ref} className="bg-white">
       <div className="container-px py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
@@ -26,14 +33,12 @@ export default function About() {
         </div>
 
         <div data-reveal="right" className="order-1 lg:order-2">
-          <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">Biz haqimizda</p>
+          <p className="tick-rule text-bronze-500 text-xs font-semibold tracking-widest2 uppercase mb-4">{t.about.label}</p>
           <h2 className="font-display font-extrabold text-3xl md:text-4xl text-charcoal leading-tight">
-            UYINGIZ UCHUN SIFATLI TANLOV
+            {t.about.title}
           </h2>
           <p className="mt-5 text-charcoal-400 leading-relaxed">
-            Biz zamonaviy dizayn, sifatli material va professional xizmatni birlashtirib, mijozlarimiz uchun
-            qulay va chiroyli yechimlar yaratamiz. Har bir buyurtma o‘lchashdan boshlab o‘rnatishgacha bitta
-            jamoa nazoratida amalga oshiriladi.
+            {t.about.text}
           </p>
         </div>
       </div>

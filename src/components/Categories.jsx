@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { catalogGroups } from '../data/products'
 import { useReveal } from '../hooks/useReveal'
+import { useLanguage } from '../context/LanguageContext'
+import { getLocalizedCategoryName } from '../data/productTranslations'
 
 export default function Categories() {
   const ref = useReveal()
+  const { language } = useLanguage()
   return (
     <section ref={ref} id="katalog" className="bg-white">
       <div className="container-px py-16 md:py-24">
@@ -25,7 +28,7 @@ export default function Categories() {
             >
               <img
                 src={c.image}
-                alt={c.name}
+                alt={getLocalizedCategoryName(c.name, c.id, language)}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
@@ -33,7 +36,7 @@ export default function Categories() {
               <span className="absolute right-4 top-4 flex h-9 w-9 translate-y-2 items-center justify-center rounded-full bg-ivory text-charcoal opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"><ArrowRight size={16} /></span>
               <span className="absolute left-4 top-4 text-[10px] font-semibold tracking-[.22em] text-ivory/70">0{i + 1}</span>
               <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-                <h3 className="font-display font-bold text-ivory text-sm md:text-base tracking-wide">{c.name}</h3>
+                <h3 className="font-display font-bold text-ivory text-sm md:text-base tracking-wide">{getLocalizedCategoryName(c.name, c.id, language)}</h3>
                 <span className="mt-1 inline-flex items-center gap-1.5 text-bronze-300 text-xs md:text-sm font-medium opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                   Ko‘rish <ArrowRight size={13} />
                 </span>

@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { ChevronLeft, Phone, Send, Ruler, Palette, Layers, ShieldCheck } from 'lucide-react'
-import { products } from '../data/products'
+import { otherDoors, products } from '../data/products'
 import { site } from '../data/site'
 import ProductCard from '../components/ProductCard'
 import { useSEO } from '../hooks/useSEO'
 import { useLanguage } from '../context/LanguageContext'
 import { getLocalizedColorName, getLocalizedProduct } from '../data/productTranslations'
+import { recordProductView } from '../data/productPopularity'
 
 export default function ProductDetail() {
   const { id } = useParams()
-  const product = products.find((p) => p.id === id)
+  const product = [...products, ...otherDoors].find((p) => p.id === id)
   const [activeColor, setActiveColor] = useState(0)
+  const recordedProduct = useRef('')
   const { language, t } = useLanguage()
   const localizedProduct = getLocalizedProduct(product, language)
 
@@ -28,11 +30,18 @@ export default function ProductDetail() {
     swatch: colorSwatch(name),
   }))
   const selectedVariant = colorVariants[activeColor] ?? colorVariants[0]
-  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3)
+  const related = [...products, ...otherDoors].filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3)
 
   useEffect(() => {
     setActiveColor(0)
   }, [product.id])
+
+  useEffect(() => {
+    if (product && recordedProduct.current !== product.id) {
+      recordedProduct.current = product.id
+      recordProductView(product.id)
+    }
+  }, [product?.id])
 
   return (
     <main className="pt-28 md:pt-32 pb-20 bg-ivory min-h-screen">

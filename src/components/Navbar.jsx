@@ -4,12 +4,14 @@ import { Menu, X, Phone, Languages } from 'lucide-react'
 import { site } from '../data/site'
 import { useLanguage } from '../context/LanguageContext'
 
-export default function Navbar() {
+export default function Navbar({ isOtherDoors = false }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { language, setLanguage, t } = useLanguage()
+  const productsLabel = 'RASULOV'
   const links = [
-    { to: '/mahsulotlar', label: t.nav.products },
+    { to: '/boshqa-eshiklar', label: t.nav.otherDoors },
+    { to: '/mahsulotlar', label: productsLabel },
     { to: '/aloqa', label: t.nav.contact },
   ]
 
@@ -29,20 +31,25 @@ export default function Navbar() {
     <header
       className="fixed top-0 inset-x-0 z-50 bg-charcoal/95 border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300"
     >
-      <nav className="container-px flex items-center justify-between h-[72px] md:h-20" aria-label={t.nav.menu}>
-        <Link to="/" className="flex items-center shrink-0 gap-3" onClick={() => setOpen(false)}>
-          
-          <img
-            src="/images/logo.png"
-            alt={`${site.brand} — ${site.brandTagline}`}
-            className="h-[3.45rem] md:h-[3.79rem] w-auto transition-transform duration-500 ease-out hover:scale-105"
-          />
-          <span className="hidden border-l border-bronze-400/60 pl-3 font-display text-[13px] font-semibold tracking-[.16em] text-bronze-300 uppercase xl:inline">
-              {t.nav.brand}
-          </span>
+      <nav className="container-px relative flex items-center justify-between h-[72px] md:h-20" aria-label={t.nav.menu}>
+        <Link to={isOtherDoors ? '/boshqa-eshiklar' : '/'} className={`brand-lockup flex items-center shrink-0 gap-3 ${isOtherDoors ? 'brand-lockup-tubo' : ''}`} onClick={() => setOpen(false)}>
+          {isOtherDoors ? (
+            <span className="tubo-wordmark" aria-label="TUBO">TUBO</span>
+          ) : (
+            <>
+              <img
+                src="/images/logo.png"
+                alt={`${site.brand} — ${site.brandTagline}`}
+                className="h-[3.45rem] md:h-[3.79rem] w-auto transition-transform duration-500 ease-out hover:scale-105"
+              />
+              <span className="hidden border-l border-bronze-400/60 pl-3 font-display text-[13px] font-semibold tracking-[.16em] text-bronze-300 uppercase xl:inline">
+                  {t.nav.brand}
+              </span>
+            </>
+          )}
         </Link>
 
-        <ul className="hidden lg:flex items-center gap-9 font-body text-sm text-ivory/80">
+        <ul className="hidden lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 items-center gap-9 whitespace-nowrap font-body text-sm text-ivory/80">
           {links.map((l) => (
             <li key={l.to}>
               <NavLink

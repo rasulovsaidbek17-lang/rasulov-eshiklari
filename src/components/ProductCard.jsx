@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Ruler, ShoppingBag } from 'lucide-react'
+import { ArrowUpRight, Award, Ruler, ShoppingBag } from 'lucide-react'
 import { site } from '../data/site'
 import { useLanguage } from '../context/LanguageContext'
 import { getLocalizedColorName, getLocalizedProduct } from '../data/productTranslations'
 
-export default function ProductCard({ product, index = 0 }) {
+export default function ProductCard({ product, index = 0, topRank = 0 }) {
   const { language, t } = useLanguage()
   const localizedProduct = getLocalizedProduct(product, language)
   return (
@@ -13,19 +13,28 @@ export default function ProductCard({ product, index = 0 }) {
       style={{ animationDelay: `${(index % 6) * 70}ms` }}
       className="product-card group relative flex flex-col overflow-hidden rounded-2xl border border-charcoal/8 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_55px_-22px_rgba(23,21,18,0.38)]"
     >
-      <Link to={`/mahsulot/${product.id}`} className={`relative block overflow-hidden ${product.category === 'eshiklar' ? 'aspect-[3/4] bg-sand-light' : 'aspect-[5/4] bg-charcoal'}`}>
+      <Link to={`/mahsulot/${product.id}`} className={`relative block overflow-hidden ${['eshiklar', 'boshqa-eshiklar'].includes(product.category) ? 'aspect-[3/4] bg-sand-light' : 'aspect-[5/4] bg-charcoal'}`}>
         <img
           src={product.image}
           alt={localizedProduct.name}
           loading="lazy"
           onError={(event) => { event.currentTarget.src = '/images/hero.jpg' }}
-          className={`h-full w-full transition-transform duration-700 ease-out ${product.category === 'eshiklar' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
+          className={`h-full w-full transition-transform duration-700 ease-out ${['eshiklar', 'boshqa-eshiklar'].includes(product.category) ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
         />
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
           <span className="rounded-full bg-ivory/95 px-3 py-1.5 text-[10px] font-bold tracking-[.12em] text-charcoal">
           {localizedProduct.categoryLabel}
           </span>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-charcoal/75 text-ivory opacity-0 transition-all duration-300 group-hover:opacity-100"><ArrowUpRight size={17} /></span>
+          <div className="flex items-start gap-2">
+            {topRank > 0 && (
+              <span className={`top-product-badge top-product-badge-${product.category === 'boshqa-eshiklar' ? 'tubo' : 'rasulov'}`} aria-label={`TOP ${topRank}`}>
+                <Award size={13} strokeWidth={2.2} />
+                <span>TOP</span>
+                <strong>{topRank}</strong>
+              </span>
+            )}
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-charcoal/75 text-ivory opacity-0 transition-all duration-300 group-hover:opacity-100"><ArrowUpRight size={17} /></span>
+          </div>
         </div>
       </Link>
 

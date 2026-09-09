@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { PackageOpen } from 'lucide-react'
 import { catalogGroups, products } from '../data/products'
@@ -7,9 +7,11 @@ import { useReveal } from '../hooks/useReveal'
 import { useSEO } from '../hooks/useSEO'
 import { useLanguage } from '../context/LanguageContext'
 import { getLocalizedCategoryName } from '../data/productTranslations'
+import { loadPopularity, sortByPopularity } from '../data/productPopularity'
 
 export default function ProductsPage() {
   const { language, t } = useLanguage()
+  const [views, setViews] = useState({})
   const catalogFilters = [
     { key: 'barchasi', label: t.catalog.label },
     { key: 'eshiklar', label: t.catalog.doors },
@@ -25,6 +27,13 @@ export default function ProductsPage() {
   const activeGroup = catalogGroups.find((group) => group.id === activeFilter)
   const ref = useReveal([activeFilter, activeSubcategory])
 
+  useEffect(() => {
+    loadPopularity().then(setViews)
+    const onPopularityUpdate = () => setViews((current) => ({ ...current }))
+    window.addEventListener('rgi-popularity-update', onPopularityUpdate)
+    return () => window.removeEventListener('rgi-popularity-update', onPopularityUpdate)
+  }, [])
+
   const filtered = useMemo(() => {
     const result = products.filter((product) => {
       const matchesCategory = activeFilter === 'barchasi'
@@ -33,8 +42,8 @@ export default function ProductsPage() {
       return matchesCategory && matchesSubcategory
     })
 
-    return result
-  }, [activeFilter, activeSubcategory])
+    return sortByPopularity(result, views)
+  }, [activeFilter, activeSubcategory, views])
 
   const categoryCounts = useMemo(
     () => catalogFilters.reduce((counts, filter) => {
@@ -128,7 +137,7 @@ export default function ProductsPage() {
 
         <div className="relative mt-5 grid gap-4 pb-16 sm:grid-cols-2 lg:gap-5 lg:grid-cols-3">
           {filtered.map((p, i) => (
-            <ProductCard key={p.id} product={p} index={i} />
+            <ProductCard key={p.id} product={p} index={i} topRank={i < 3 ? i + 1 : 0} />
           ))}
           {filtered.length === 0 && (
             <div className="col-span-full flex flex-col items-center justify-center rounded-2xl border border-dashed border-charcoal/15 bg-white px-6 py-20 text-center">

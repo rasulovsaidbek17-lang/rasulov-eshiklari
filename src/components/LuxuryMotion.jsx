@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react'
 
-export default function LuxuryMotion() {
+export default function LuxuryMotion({ brand = 'RGI', replayKey = null }) {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    setLoaded(false)
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const timer = window.setTimeout(() => setLoaded(true), reduceMotion ? 0 : 950)
     return () => {
       window.clearTimeout(timer)
     }
-  }, [])
+  }, [replayKey])
 
   return (
-    <LuxuryLoader completed={loaded} />
+    <LuxuryLoader brand={brand} completed={loaded} />
   )
 }
 
-export function LuxuryLoader({ completed = false }) {
+export function LuxuryLoader({ brand = 'RGI', completed = false }) {
   return (
     <div className={`luxury-loader ${completed ? 'is-complete' : ''}`} aria-hidden="true">
       <div className="loader-ring" />
-      <div className="loader-mark"><span>RGI</span><i /><small>INTERIOR OBJECTS</small></div>
+      <div className="loader-mark"><span>{brand}</span><i /><small>{brand === 'TUBO' ? 'DOOR COLLECTION' : 'INTERIOR OBJECTS'}</small></div>
       <p></p>
       <div className="loader-progress"><span /></div>
     </div>

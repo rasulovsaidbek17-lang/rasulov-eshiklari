@@ -5,18 +5,22 @@ import { catalogGroups } from '../data/products'
 import { useLanguage } from '../context/LanguageContext'
 import { getLocalizedCategoryName } from '../data/productTranslations'
 
-export default function Footer() {
+export default function Footer({ isOtherDoors = false }) {
   const { language, t } = useLanguage()
   return (
     <footer className="bg-charcoal-800 border-t border-white/5">
       <div className="container-px py-14 md:py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-1">
-          <Link to="/" className="inline-flex mb-4">
-            <img
-              src="/images/logo.png"
-              alt={`${site.brand} — ${site.brandTagline}`}
-              className="h-[3.79rem] w-auto"
-            />
+          <Link to={isOtherDoors ? '/boshqa-eshiklar' : '/'} className="inline-flex mb-4">
+            {isOtherDoors ? (
+              <span className="tubo-footer-wordmark" aria-label="TUBO">TUBO</span>
+            ) : (
+              <img
+                src="/images/logo.png"
+                alt={`${site.brand} — ${site.brandTagline}`}
+                className="h-[3.79rem] w-auto"
+              />
+            )}
           </Link>
           <p className="text-ivory/50 text-sm leading-relaxed max-w-xs">
             {t.footer.description}
@@ -67,7 +71,7 @@ export default function Footer() {
 
       <div className="border-t border-white/5">
         <div className="container-px py-5 text-center text-ivory/35 text-xs">
-          © 2026 {site.brand.toUpperCase()}. {t.footer.rights}
+          © 2026 {isOtherDoors ? 'TUBO' : site.brand.toUpperCase()}. {t.footer.rights}
         </div>
       </div>
     </footer>

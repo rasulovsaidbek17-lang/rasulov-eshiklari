@@ -17,17 +17,17 @@ export default function OtherDoorsPage() {
     return () => window.removeEventListener('rgi-popularity-update', onPopularityUpdate)
   }, [])
   useSEO({
-    title: 'TUBO | Boshqa eshiklar',
-    description: 'TUBO eshiklar kolleksiyasi.',
+    title: 'Eshiklar olami',
+    description: 'Eshiklar olami eshiklar kolleksiyasi.',
   })
 
   return (
     <main ref={ref} className="relative min-h-screen overflow-hidden bg-ivory pb-16 pt-28 md:pt-36">
       <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-sand-light to-transparent pointer-events-none" />
-      <span className="pointer-events-none absolute right-[-.06em] top-20 font-display text-[21vw] font-extrabold leading-none text-charcoal/[.025]" aria-hidden="true">TUBO</span>
+      <span className="pointer-events-none absolute right-[-.06em] top-20 font-display text-[13vw] font-extrabold leading-none text-charcoal/[.025]" aria-hidden="true">ESHIKLAR OLAMI</span>
       <div className="container-px relative">
         <header data-reveal="left" className="max-w-3xl">
-          <p data-reveal="left" className="tick-rule mb-4 text-xs font-semibold tracking-widest2 text-bronze-500 uppercase">TUBO / DOOR COLLECTION</p>
+          <p data-reveal="left" className="tick-rule mb-4 text-xs font-semibold tracking-widest2 text-bronze-500 uppercase">ESHIKLAR OLAMI / DOOR COLLECTION</p>
           <h1 className="font-display text-4xl font-extrabold leading-[.98] text-charcoal md:text-6xl">{t.otherDoors.title}</h1>
           <p className="mt-5 max-w-xl leading-relaxed text-charcoal-400">{t.otherDoors.description}</p>
         </header>

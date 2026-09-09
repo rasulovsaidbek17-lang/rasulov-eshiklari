@@ -34,7 +34,7 @@ export default function Navbar({ isOtherDoors = false }) {
       <nav className="container-px relative flex items-center justify-between h-[72px] md:h-20" aria-label={t.nav.menu}>
         <Link to={isOtherDoors ? '/boshqa-eshiklar' : '/'} className={`brand-lockup flex items-center shrink-0 gap-3 ${isOtherDoors ? 'brand-lockup-tubo' : ''}`} onClick={() => setOpen(false)}>
           {isOtherDoors ? (
-            <span className="tubo-wordmark" aria-label="TUBO">TUBO</span>
+            <span className="tubo-wordmark" aria-label="Eshiklar olami">ESHIKLAR OLAMI</span>
           ) : (
             <>
               <img

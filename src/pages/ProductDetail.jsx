@@ -24,6 +24,7 @@ export default function ProductDetail() {
 
   if (!product) return <Navigate to="/mahsulotlar" replace />
 
+  const catalogPath = product.category === 'boshqa-eshiklar' ? '/boshqa-eshiklar' : '/mahsulotlar'
   const colorVariants = product.colorVariants ?? product.colors.map((name, index) => ({
     name,
     image: product.gallery[index] ?? product.image,
@@ -46,7 +47,7 @@ export default function ProductDetail() {
   return (
     <main className="pt-28 md:pt-32 pb-20 bg-ivory min-h-screen">
       <div className="container-px">
-        <Link to="/mahsulotlar" className="inline-flex items-center gap-1.5 text-charcoal-400 hover:text-charcoal text-sm font-medium mb-8">
+        <Link to={catalogPath} className="inline-flex items-center gap-1.5 text-charcoal-400 hover:text-charcoal text-sm font-medium mb-8">
           <ChevronLeft size={16} />
           {t.detail.back}
         </Link>
@@ -59,7 +60,7 @@ export default function ProductDetail() {
               </p>
               <h1 className="font-display font-extrabold text-3xl text-charcoal leading-tight">{localizedProduct.name}</h1>
             </div>
-            <div className={`aspect-[3/4] lg:aspect-[4/3] overflow-hidden ${product.category === 'eshiklar' ? 'bg-sand-light' : 'bg-white'}`}>
+            <div className={`aspect-[3/4] ${product.category !== 'boshqa-eshiklar' ? 'lg:aspect-[4/3]' : ''} overflow-hidden ${product.category === 'eshiklar' ? 'bg-sand-light' : 'bg-white'}`}>
               <img
                 src={selectedVariant.image}
                 alt={`${localizedProduct.name} — ${selectedVariant.name}`}

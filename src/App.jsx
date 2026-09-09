@@ -34,7 +34,7 @@ export default function App() {
           </Routes>
         </div>
       </div>
-      <LuxuryMotion brand={isOtherDoors ? 'TUBO' : 'RGI'} replayKey={isOtherDoors ? location.key : null} />
+      <LuxuryMotion brand={isOtherDoors ? 'ESHIKLAR OLAMI' : 'RGI'} replayKey={location.key} />
       <Footer isOtherDoors={isOtherDoors} />
     </div>
   )

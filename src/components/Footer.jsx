@@ -13,7 +13,7 @@ export default function Footer({ isOtherDoors = false }) {
         <div className="md:col-span-1">
           <Link to={isOtherDoors ? '/boshqa-eshiklar' : '/'} className="inline-flex mb-4">
             {isOtherDoors ? (
-              <span className="tubo-footer-wordmark" aria-label="TUBO">TUBO</span>
+              <span className="tubo-footer-wordmark" aria-label="Eshiklar olami">ESHIKLAR OLAMI</span>
             ) : (
               <img
                 src="/images/logo.png"
@@ -71,7 +71,7 @@ export default function Footer({ isOtherDoors = false }) {
 
       <div className="border-t border-white/5">
         <div className="container-px py-5 text-center text-ivory/35 text-xs">
-          © 2026 {isOtherDoors ? 'TUBO' : site.brand.toUpperCase()}. {t.footer.rights}
+          © 2026 {isOtherDoors ? 'ESHIKLAR OLAMI' : site.brand.toUpperCase()}. {t.footer.rights}
         </div>
       </div>
     </footer>

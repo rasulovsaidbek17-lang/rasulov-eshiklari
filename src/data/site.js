@@ -1,0 +1,16 @@
+export const site = {
+  brand: 'Rasulov GI',
+  brandTagline: 'Eshik va mebel',
+  brandShort: 'RGI',
+  slogan: 'Sifatli eshiklar va zamonaviy mebellar',
+  subSlogan: 'Uyingiz uchun eng yaxshi tanlov',
+  phone: '+998 97 443 28 28',
+  phoneHref: 'tel:+998974432828',
+  telegram: '@rasulovnomer1',
+  telegramHref: 'https://t.me/rasulovnomer1',
+  instagram: '@rasulov.eshiklarii',
+  instagramHref: 'https://instagram.com/rasulov.eshiklarii',
+  address: 'Siz qayerda bolsangiz ham biz sizga yetkazib beramiz',
+  email: 'info@rasulov-mebel.uz',
+  // whatsappHref: 'https://wa.me/998974432828',
+}

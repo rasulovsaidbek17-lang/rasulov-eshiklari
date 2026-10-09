@@ -645,7 +645,6 @@ export const products = [
     warranty: '5 yil kafolat',
   },
   {
-<<<<<<< HEAD
     id: 'Standart-7',
     name: 'Standart №7 ',
     category: 'eshiklar',
@@ -667,8 +666,6 @@ export const products = [
     warranty: '5 yil kafolat',
   },
   {
-=======
->>>>>>> 836fef6845447fddc5d10ac70f15bf59432efc97
     id: 'remini-glass-3',
     name: 'Remini Glass 3',
     category: 'eshiklar',
